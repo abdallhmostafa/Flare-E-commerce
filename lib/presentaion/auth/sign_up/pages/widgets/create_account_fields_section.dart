@@ -50,7 +50,6 @@ class CreateAccountFieldsSection extends StatelessWidget {
               controller: context.read<SignUpCubit>().passwordController,
               hintText: 'Password',
               isObscureText: true,
-              textInputAction: TextInputAction.done,
               textInputType: TextInputType.text,
               validator: passwordValidation,
             ),
@@ -75,6 +74,4 @@ class CreateAccountFieldsSection extends StatelessWidget {
           ],
         ));
   }
-
-
 }

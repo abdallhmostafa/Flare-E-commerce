@@ -35,7 +35,8 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: BasicAppBar(),
       ),
-      body: SafeArea(
+      body: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.symmetric(
               horizontal: AppConstant.defaultScreenPadding),
@@ -44,7 +45,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Spacer(),
+                Space.verticalSpace(60),
                 Text(
                   "Forgot Password",
                   style: Theme.of(context).textTheme.headlineLarge,
@@ -74,6 +75,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                     ),
                   ],
                 ),
+                Space.verticalSpace(20),
                 AppReactiveSubmitBlocListner(
                   successMessage:
                       "Wohoo✨! Your password was sent successfully, please check your email",
@@ -82,7 +84,6 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                         predicate: (route) => false);
                   },
                 ),
-                const Spacer(flex: 8),
               ],
             ),
           ),

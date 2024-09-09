@@ -22,14 +22,16 @@ class SignInPage extends StatelessWidget {
           hideBackArrorw: true,
         ),
       ),
-      body: SafeArea(
+      body: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+
         child: Padding(
           padding: const EdgeInsets.symmetric(
               horizontal: AppConstant.defaultScreenPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Spacer(),
+              Space.verticalSpace(60),
               Text(
                 "Sign In",
                 style: Theme.of(context).textTheme.headlineLarge,
@@ -50,7 +52,7 @@ class SignInPage extends StatelessWidget {
               ),
               Space.verticalSpace(16),
               _forgotPassowrord(context),
-              const Spacer(flex: 8),
+              Space.verticalSpace(20),
             ],
           ),
         ),

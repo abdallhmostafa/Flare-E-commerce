@@ -22,49 +22,53 @@ class EnterPasswordPage extends StatelessWidget {
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: BasicAppBar(),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: AppConstant.defaultScreenPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Spacer(),
-            Text(
-              "Sign In",
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-            Space.verticalSpace(32),
-            const PasswordFieldSection(),
-            Space.verticalSpace(16),
-            Row(
-              children: [
-                Expanded(
-                  child: AppBasicReactiveButton(
-                    onPressed: () {
-                      if (context.read<SingInCubit>().checkPassword(
-                          userSignInRequest: userSignInRequest)) {
-                        context.read<AppBasicReactiveButtonCubit>().submit(
-                              useCase: SignInUseCase(),
-                              params: userSignInRequest,
-                            );
-                      }
-                    },
+      body: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: AppConstant.defaultScreenPadding),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Space.verticalSpace(60),
+              Text(
+                "Sign In",
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              Space.verticalSpace(32),
+              const PasswordFieldSection(),
+              Space.verticalSpace(16),
+              Row(
+                children: [
+                  Expanded(
+                    child: AppBasicReactiveButton(
+                      onPressed: () {
+                        if (context.read<SingInCubit>().checkPassword(
+                            userSignInRequest: userSignInRequest)) {
+                          context.read<AppBasicReactiveButtonCubit>().submit(
+                                useCase: SignInUseCase(),
+                                params: userSignInRequest,
+                              );
+                        }
+                      },
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Space.verticalSpace(16),
-            const ForgetPasswordSection(),
-            const Spacer(flex: 8),
-            AppReactiveSubmitBlocListner(
-              successMessage:
-                  "Congratulations!🎉🥳, You have sign in successfully",
-              forSuccessState: () {
-                // context.pushNamedAndRemoveUntil(Routes.homePage,
-                //     predicate: predicate);
-              },
-            ),
-          ],
+                ],
+              ),
+              Space.verticalSpace(16),
+              const ForgetPasswordSection(),
+              Space.verticalSpace(20),
+
+              AppReactiveSubmitBlocListner(
+                successMessage:
+                    "Congratulations!🎉🥳, You have sign in successfully",
+                forSuccessState: () {
+                  // context.pushNamedAndRemoveUntil(Routes.homePage,
+                  //     predicate: predicate);
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

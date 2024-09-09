@@ -18,35 +18,31 @@ class GenderAndAgePage extends StatelessWidget {
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: BasicAppBar(),
       ),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: AppConstant.defaultScreenPadding),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Tell us About Yourself",
-                    style: Theme.of(context).textTheme.headlineLarge,
-                  ),
-                  Space.verticalSpace(30),
-                  const SelectGenderSection(),
-                  Space.verticalSpace(55),
-                  const SelectAgeRangeSection(),
-                ],
-              ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Space.verticalSpace(60),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppConstant.defaultScreenPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Tell us About Yourself",
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                Space.verticalSpace(30),
+                const SelectGenderSection(),
+                Space.verticalSpace(55),
+                const SelectAgeRangeSection(),
+              ],
             ),
-            const Spacer(flex: 9),
-            ButtomSection(userCreationRequest: userCreationRequest),
-          ],
-        ),
+          ),
+          const Spacer(flex: 9),
+          ButtomSection(userCreationRequest: userCreationRequest),
+        ],
       ),
     );
   }
 }
-
-

@@ -1,0 +1,26 @@
+import 'package:flare/common/helpers/validation.dart';
+import 'package:flare/common/widgets/text_field/app_text_form_field.dart';
+import 'package:flare/presentaion/auth/sign_in/logic/cubit/sing_in_cubit.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class EmailFieldSection extends StatelessWidget {
+  const EmailFieldSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: context.read<SingInCubit>().emailKey,
+      child: Column(
+        children: [
+          AppTextFormField(
+            controller: context.read<SingInCubit>().emailController,
+            hintText: 'Email Address',
+            textInputAction: TextInputAction.done,
+            validator: emailValidation,
+          ),
+        ],
+      ),
+    );
+  }
+}

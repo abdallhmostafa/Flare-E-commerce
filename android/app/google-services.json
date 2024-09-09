@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "699588252443",
+    "project_id": "flare-214f2",
+    "storage_bucket": "flare-214f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699588252443:android:9f39932fe460989cf479be",
+        "android_client_info": {
+          "package_name": "com.example.flare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4uiC2Lz-TqTlXh95Eq3cR0l8IP6g4oz0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,65 @@
+name: flare
+description: "A new Flutter project."
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.4.3 <4.0.0"
+# ------------------------------ Package Dependencies ------------------------------ #
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Utility Package #
+  http: ^1.1.0
+  intl:
+  logger: ^2.0.1
+  url_launcher: ^6.1.12
+
+  # Icons Package#
+  cupertino_icons: ^1.0.6
+  iconsax: ^0.0.8
+
+  # State Management Package #
+  get: ^4.6.6
+  get_storage: ^2.1.1
+  flutter_svg: ^2.0.10+1
+  flutter_bloc: ^8.1.6
+  firebase_auth: ^4.16.0
+  cloud_firestore: ^4.14.0
+  get_it: ^7.7.0
+  dartz: ^0.10.1
+  firebase_core: ^2.24.2
+  flutter_screenutil: ^5.9.3
+  lottie: ^3.1.2
+
+# ------------------------------ ./ Package Dependencies ---------------------------- #
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
+#  Add a custom font to the project with all the weights and styles
+  assets:
+    - assets/fonts/
+    - assets/vectors/
+    - assets/images/
+    - assets/json/
+
+  fonts:
+    - family: CircularStd
+      fonts:
+        - asset: assets/fonts/CircularStd-Black.ttf
+          weight: 800
+        - asset: assets/fonts/CircularStd-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/CircularStd-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/CircularStd-Regular.ttf
+          weight: 400

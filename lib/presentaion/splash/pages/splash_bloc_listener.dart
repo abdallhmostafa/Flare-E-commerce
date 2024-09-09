@@ -12,7 +12,7 @@ class SplashBlocListener extends StatelessWidget {
     return BlocListener<SplashCubit, SplashState>(
       listener: (context, state) {
         if (state is UnAuthenticatedState) {
-          context.pushReplacementNamed(Routes.signIn);
+          context.pushReplacementNamed(Routes.signInPage);
         }
       },
       child: const SizedBox.shrink(),

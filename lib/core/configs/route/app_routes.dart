@@ -3,6 +3,7 @@ import 'package:flare/core/configs/route/custom_route_animation.dart';
 import 'package:flare/core/configs/route/routes.dart';
 import 'package:flare/data/auth/models/user_creation_request.dart';
 import 'package:flare/data/auth/models/user_sign_in_request.dart';
+import 'package:flare/presentaion/auth/forget_password/pages/email_sent_page.dart';
 import 'package:flare/presentaion/auth/forget_password/pages/forget_password_page.dart';
 import 'package:flare/presentaion/auth/gender_and_age_page/gender_and_age_page.dart';
 import 'package:flare/presentaion/auth/gender_and_age_page/logic/age_selection/ages_display_cubit.dart';
@@ -25,7 +26,11 @@ class AppRouter {
         return CustomRouteAnimation(
           child: const SplashPage(),
         );
-      case Routes.signIn:
+         case Routes.emailSentPage:
+        return CustomRouteAnimation(
+          child: const EmailSentPage(),
+        );
+      case Routes.signInPage:
         return CustomRouteAnimation(
           child: BlocProvider(
             create: (_) => SingInCubit(),
@@ -46,7 +51,10 @@ class AppRouter {
         );
       case Routes.forgetPasswordPage:
         return CustomRouteAnimation(
-          child: const ForgetPasswordPage(),
+          child: BlocProvider(
+            create: (_) => AppBasicReactiveButtonCubit(),
+            child: const ForgetPasswordPage(),
+          ),
         );
       case Routes.signUpPage:
         return CustomRouteAnimation(

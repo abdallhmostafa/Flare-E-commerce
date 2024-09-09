@@ -20,43 +20,42 @@ class SignUpPage extends StatelessWidget {
           preferredSize: Size.fromHeight(kToolbarHeight),
           child: BasicAppBar(),
         ),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: AppConstant.defaultScreenPadding),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Create Account",
-                    style: Theme.of(context).textTheme.headlineLarge,
-                  ),
-                  Space.verticalSpace(32),
-                  const CreateAccountFieldsSection(),
-                  Space.verticalSpace(40),
-                  Row(
-                    children: [
-                      Expanded(child: AppBasicButton(
-                        onPressed: () {
-                          if (context
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppConstant.defaultScreenPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Space.verticalSpace(60),
+                Text(
+                  "Create Account",
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                Space.verticalSpace(32),
+                const CreateAccountFieldsSection(),
+                Space.verticalSpace(40),
+                Row(
+                  children: [
+                    Expanded(child: AppBasicButton(
+                      onPressed: () {
+                        if (context
+                            .read<SignUpCubit>()
+                            .formKey
+                            .currentState!
+                            .validate()) {
+                          context
                               .read<SignUpCubit>()
-                              .formKey
-                              .currentState!
-                              .validate()) {
-                            context
-                                .read<SignUpCubit>()
-                                .checkIfAllFieldsAreFilled(context);
-                          }
-                        },
-                      )),
-                    ],
-                  ),
-                  Space.verticalSpace(16),
-                  _haveAccount(context),
-                  Space.verticalSpace(30),
-                ],
-              ),
+                              .checkIfAllFieldsAreFilled(context);
+                        }
+                      },
+                    )),
+                  ],
+                ),
+                Space.verticalSpace(16),
+                _haveAccount(context),
+                Space.verticalSpace(20),
+              ],
             ),
           ),
         ));
@@ -75,7 +74,7 @@ RichText _haveAccount(BuildContext context) {
           text: " Sign In",
           recognizer: TapGestureRecognizer()
             ..onTap = () {
-              context.pushNamed(Routes.signIn);
+              context.pushNamed(Routes.signInPage);
             },
           style: Theme.of(context)
               .textTheme

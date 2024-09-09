@@ -10,15 +10,21 @@ class AuthRepoImpl extends AuthRepo {
   Future<Either> signup(UserCreationRequest user) {
     return AppServiceLocator.getIt<AuthFirebaseService>().signup(user);
   }
-  
+
   @override
   Future<Either> getAges() {
-   return AppServiceLocator.getIt<AuthFirebaseService>().getAges();
+    return AppServiceLocator.getIt<AuthFirebaseService>().getAges();
   }
 
   @override
   Future<Either> signIn(UserSignInRequest userSignInRequest) {
-   return AppServiceLocator.getIt<AuthFirebaseService>().signIn(userSignInRequest);
-  
+    return AppServiceLocator.getIt<AuthFirebaseService>()
+        .signIn(userSignInRequest);
+  }
+
+  @override
+  Future<Either> sendPasswordResetEmail({required String email}) {
+    return AppServiceLocator.getIt<AuthFirebaseService>()
+        .sendPasswordResetEmail(email: email);
   }
 }

@@ -75,7 +75,7 @@ RichText _haveAccount(BuildContext context) {
           text: " Sign In",
           recognizer: TapGestureRecognizer()
             ..onTap = () {
-              context.pushNamed(Routes.signIn);
+              context.pushNamed(Routes.signInPage);
             },
           style: Theme.of(context)
               .textTheme

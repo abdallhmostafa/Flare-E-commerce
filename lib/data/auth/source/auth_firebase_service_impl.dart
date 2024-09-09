@@ -68,6 +68,20 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
       return Left(errorMessage);
     }
   }
+
+  @override
+  Future<Either> sendPasswordResetEmail({required String email}) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+
+      return const Right("Password was sent to email 😊");
+    } on FirebaseAuthException catch (error) {
+      String errorMessage = "Something went wrong 😔";
+      errorMessage = _checkSignInFirebaseError(error, errorMessage);
+
+      return Left(errorMessage);
+    }
+  }
 }
 
 String _checkSignInFirebaseError(

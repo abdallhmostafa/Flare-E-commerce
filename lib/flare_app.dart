@@ -19,7 +19,8 @@ class FlareApp extends StatelessWidget {
       ),
     );
     return BlocProvider(
-      create: (_) => SplashCubit()..appStarted(),
+      create: (_) => SplashCubit()
+        ..appStarted(), // TODO: Remove The cubit for the splash and use StateFulWidget
       child: MaterialApp(
         title: 'Flare App',
         debugShowCheckedModeBanner: false,

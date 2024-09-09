@@ -14,7 +14,8 @@ class AppBasicButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor,
         elevation: 0,
-        padding: const EdgeInsetsDirectional.symmetric(vertical: 12),
+        padding:
+            const EdgeInsetsDirectional.symmetric(vertical: 16, horizontal: 24),
       ),
       child: Text(
         text ?? "Continue",

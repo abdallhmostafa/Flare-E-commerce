@@ -18,13 +18,14 @@ class AppReactiveSubmitBlocListner extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             appSnackBarError(context: context, errorMessge: state.errorMessage),
           );
-          forSuccessState ?? ();
         } else if (state is AppBasicReactiveButtonSuccessState) {
           ScaffoldMessenger.of(context).showSnackBar(
             appSnackBarSuccess(
                 context: context,
-                message: successMessage ?? "Congratulations! Sign up success"),
+                message: successMessage ?? "Congratulations!"),
           );
+          forSuccessState?.call();
+
         }
       },
       listenWhen: (previous, current) =>

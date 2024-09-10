@@ -27,4 +27,10 @@ class AuthRepoImpl extends AuthRepo {
     return AppServiceLocator.getIt<AuthFirebaseService>()
         .sendPasswordResetEmail(email: email);
   }
+  
+  @override
+  Future<bool> isUserSignIn() {
+     return AppServiceLocator.getIt<AuthFirebaseService>().isUserSignIn();
+
+  }
 }

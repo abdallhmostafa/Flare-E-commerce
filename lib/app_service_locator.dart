@@ -4,6 +4,7 @@ import 'package:flare/data/auth/source/auth_firebase_service_impl.dart';
 import 'package:flare/domain/auth/repository/auth_domain_repo.dart';
 import 'package:flare/domain/auth/usecase/forget_password_use_case.dart';
 import 'package:flare/domain/auth/usecase/get_ages_use_case.dart';
+import 'package:flare/domain/auth/usecase/is_user_sign_in.dart';
 import 'package:flare/domain/auth/usecase/sign_in_use_case.dart';
 import 'package:flare/domain/auth/usecase/sign_up_use_case.dart';
 import 'package:get_it/get_it.dart';
@@ -26,5 +27,6 @@ class AppServiceLocator {
     getIt.registerSingleton<GetAgesUseCase>(GetAgesUseCase());
     getIt.registerSingleton<SignInUseCase>(SignInUseCase());
     getIt.registerSingleton<ForgetPasswordUseCase>(ForgetPasswordUseCase());
+    getIt.registerSingleton<IsUserSignIn>(IsUserSignIn());
   }
 }

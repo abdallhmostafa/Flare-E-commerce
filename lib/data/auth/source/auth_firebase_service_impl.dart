@@ -82,6 +82,10 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
       return Left(errorMessage);
     }
   }
+
+  @override
+  Future<bool> isUserSignIn() async =>
+      FirebaseAuth.instance.currentUser != null ? true : false;
 }
 
 String _checkSignInFirebaseError(

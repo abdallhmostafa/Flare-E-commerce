@@ -14,6 +14,7 @@ import 'package:flare/presentaion/auth/sign_in/page/enter_password_page.dart';
 import 'package:flare/presentaion/auth/sign_in/page/sign_in_page.dart';
 import 'package:flare/presentaion/auth/sign_up/logic/sign_up_cubit.dart';
 import 'package:flare/presentaion/auth/sign_up/pages/sign_up_page.dart';
+import 'package:flare/presentaion/home/pages/home_page.dart';
 import 'package:flare/presentaion/splash/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +27,11 @@ class AppRouter {
         return CustomRouteAnimation(
           child: const SplashPage(),
         );
-         case Routes.emailSentPage:
+      case Routes.homePage:
+        return CustomRouteAnimation(
+          child: const HomePage(),
+        );
+      case Routes.emailSentPage:
         return CustomRouteAnimation(
           child: const EmailSentPage(),
         );

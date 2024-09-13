@@ -28,7 +28,7 @@ class ButtomSection extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: AppConstant.defaultScreenPadding),
+                  horizontal: AppConstant.horizontalScreenPadding),
               child: AppBasicReactiveButton(
                   onPressed: () {
                     final AgeSelectionCubit ageCubit =

@@ -28,7 +28,7 @@ class EnterPasswordPage extends StatelessWidget {
         physics: const AlwaysScrollableScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.symmetric(
-              horizontal: AppConstant.defaultScreenPadding),
+              horizontal: AppConstant.horizontalScreenPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

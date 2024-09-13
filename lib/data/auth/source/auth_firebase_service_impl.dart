@@ -29,7 +29,7 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
       return const Right("Signup done Successfully 😊");
     } on FirebaseAuthException catch (error) {
       String errorMessage = "Something went wrong 😔";
-      errorMessage = _checkSignUpFirebaseError(error, errorMessage);
+      errorMessage = _checkFirebaseAuthException(error, errorMessage);
 
       return Left(errorMessage);
     }
@@ -63,7 +63,7 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
       return const Right("Sign In done Successfully 😊");
     } on FirebaseAuthException catch (error) {
       String errorMessage = "Something went wrong 😔";
-      errorMessage = _checkSignInFirebaseError(error, errorMessage);
+      errorMessage = _checkFirebaseAuthException(error, errorMessage);
 
       return Left(errorMessage);
     }
@@ -77,7 +77,7 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
       return const Right("Password was sent to email 😊");
     } on FirebaseAuthException catch (error) {
       String errorMessage = "Something went wrong 😔";
-      errorMessage = _checkSignInFirebaseError(error, errorMessage);
+      errorMessage = _checkFirebaseAuthException(error, errorMessage);
 
       return Left(errorMessage);
     }
@@ -86,9 +86,61 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
   @override
   Future<bool> isUserSignIn() async =>
       FirebaseAuth.instance.currentUser != null ? true : false;
+
+  @override
+  Future<Either<dynamic, Map<String, dynamic>?>> getUserData() async {
+    try {
+      final User? currentUser = FirebaseAuth.instance.currentUser;
+      final userData = await FirebaseFirestore.instance
+          .collection(AppFirebaseConstant.userCollection)
+          .doc(currentUser?.uid)
+          .get()
+          .then((value) => value.data());
+      return Right(userData);
+    } on FirebaseException catch (e) {
+      String errorMessage = '';
+      errorMessage = _checkFirebaseException(e, errorMessage);
+      return Left(errorMessage);
+    } catch (e) {
+      return const Left("Something went wrong 😔");
+    }
+  }
 }
 
-String _checkSignInFirebaseError(
+String _checkFirebaseException(FirebaseException error, String errorMessage) {
+  if (error.code == 'permission-denied') {
+    errorMessage = 'Permission denied';
+  } else if (error.code == 'unavailable') {
+    errorMessage = 'Service unavailable';
+  } else if (error.code == 'aborted') {
+    errorMessage = 'Aborted';
+  } else if (error.code == 'cancelled') {
+    errorMessage = 'Cancelled';
+  } else if (error.code == 'data-loss') {
+    errorMessage = 'Data loss';
+  } else if (error.code == 'deadline-exceeded') {
+    errorMessage = 'Deadline exceeded';
+  } else if (error.code == 'internal') {
+    errorMessage = 'Internal error';
+  } else if (error.code == 'invalid-argument') {
+    errorMessage = 'Invalid argument';
+  } else if (error.code == 'not-found') {
+    errorMessage = 'Not found';
+  } else if (error.code == 'out-of-range') {
+    errorMessage = 'Out of range';
+  } else if (error.code == 'resource-exhausted') {
+    errorMessage = 'Resource exhausted';
+  } else if (error.code == 'unauthenticated') {
+    errorMessage = 'Unauthenticated';
+  } else if (error.code == 'unknown') {
+    errorMessage = 'Unknown error';
+  } else {
+    errorMessage = 'Something went wrong 😔';
+  }
+  return errorMessage;
+}
+
+String _checkFirebaseAuthException(
     FirebaseAuthException error, String errorMessage) {
   if (error.code == 'user-not-found') {
     errorMessage = 'No user found for that email.';
@@ -106,16 +158,7 @@ String _checkSignInFirebaseError(
     errorMessage = 'Network request failed.';
   } else if (error.code == 'app-not-authorized') {
     errorMessage = 'App not authorized.';
-  } else if (error.code == 'invalid-api-key') {
-    errorMessage = 'Invalid API key.';
-  }
-
-  return errorMessage;
-}
-
-String _checkSignUpFirebaseError(
-    FirebaseAuthException error, String errorMessage) {
-  if (error.code == 'weak-password') {
+  } else if (error.code == 'weak-password') {
     errorMessage = 'The password provided is too weak.';
   } else if (error.code == 'email-already-in-use') {
     errorMessage = 'The account already exists for that email.';

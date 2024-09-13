@@ -15,7 +15,7 @@ class EmailSentPage extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(
-            horizontal: AppConstant.defaultScreenPadding),
+            horizontal: AppConstant.horizontalScreenPadding),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -29,11 +29,10 @@ class EmailSentPage extends StatelessWidget {
               ),
               Space.verticalSpace(24),
               AppBasicButton(
-                text: "Return to Login",
-                onPressed: () {
-                
-                context.pushReplacementNamed(Routes.signInPage);
-              })
+                  text: "Return to Login",
+                  onPressed: () {
+                    context.pushReplacementNamed(Routes.signInPage);
+                  })
             ],
           ),
         ),

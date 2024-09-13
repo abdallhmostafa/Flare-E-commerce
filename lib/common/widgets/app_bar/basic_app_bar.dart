@@ -16,7 +16,7 @@ class BasicAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-          horizontal: AppConstant.defaultScreenPadding),
+          horizontal: AppConstant.horizontalScreenPadding),
       child: Padding(
         padding: const EdgeInsets.only(top: 10),
         child: AppBar(

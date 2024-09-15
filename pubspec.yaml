@@ -36,6 +36,7 @@ dependencies:
   lottie: ^3.1.2
   font_awesome_flutter: ^10.7.0
   shimmer: ^3.0.0
+  cached_network_image: ^3.4.1
 
 # ------------------------------ ./ Package Dependencies ---------------------------- #
 dev_dependencies:

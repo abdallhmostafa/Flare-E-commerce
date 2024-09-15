@@ -1,8 +1,8 @@
 import 'package:flare/common/helpers/space.dart';
 import 'package:flare/core/configs/assets/app_images_assets.dart';
 import 'package:flare/core/configs/theme/app_colors.dart';
-import 'package:flare/presentaion/home/logic/cubit/get_user_info_cubit.dart';
-import 'package:flare/presentaion/home/widgets/shimmer_header_section.dart';
+import 'package:flare/presentaion/home/logic/get_user_info_cubit/get_user_info_cubit.dart';
+import 'package:flare/presentaion/home/widgets/header_section/shimmer_header_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

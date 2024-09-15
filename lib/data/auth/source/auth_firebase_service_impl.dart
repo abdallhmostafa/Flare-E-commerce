@@ -1,6 +1,8 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flare/common/helpers/firebase_exception.dart';
 import 'package:flare/core/constants/app_firebase_constant.dart';
 import 'package:flare/data/auth/models/user_creation_request.dart';
 import 'package:flare/data/auth/models/user_sign_in_request.dart';
@@ -36,19 +38,15 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
   }
 
   @override
-  Future<Either> getAges() async {
+  Future<Either<dynamic, List<Map<String, dynamic>>>> getAges() async {
     try {
       final QuerySnapshot<Map<String, dynamic>> ages = await FirebaseFirestore
           .instance
           .collection(AppFirebaseConstant.ageCollection)
           .get();
-      List<String> ageList = [];
-      for (var age in ages.docs) {
-        ageList.add(age['value']);
-      }
-      return Right(ageList);
+      return Right(ages.docs.map((e) => e.data()).toList());
     } catch (error) {
-      return const Left("please try again later 😔");
+      return Left(error);
     }
   }
 
@@ -98,46 +96,12 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
           .then((value) => value.data());
       return Right(userData);
     } on FirebaseException catch (e) {
-      String errorMessage = '';
-      errorMessage = _checkFirebaseException(e, errorMessage);
+      String errorMessage = checkFirebaseException(e);
       return Left(errorMessage);
     } catch (e) {
       return const Left("Something went wrong 😔");
     }
   }
-}
-
-String _checkFirebaseException(FirebaseException error, String errorMessage) {
-  if (error.code == 'permission-denied') {
-    errorMessage = 'Permission denied';
-  } else if (error.code == 'unavailable') {
-    errorMessage = 'Service unavailable';
-  } else if (error.code == 'aborted') {
-    errorMessage = 'Aborted';
-  } else if (error.code == 'cancelled') {
-    errorMessage = 'Cancelled';
-  } else if (error.code == 'data-loss') {
-    errorMessage = 'Data loss';
-  } else if (error.code == 'deadline-exceeded') {
-    errorMessage = 'Deadline exceeded';
-  } else if (error.code == 'internal') {
-    errorMessage = 'Internal error';
-  } else if (error.code == 'invalid-argument') {
-    errorMessage = 'Invalid argument';
-  } else if (error.code == 'not-found') {
-    errorMessage = 'Not found';
-  } else if (error.code == 'out-of-range') {
-    errorMessage = 'Out of range';
-  } else if (error.code == 'resource-exhausted') {
-    errorMessage = 'Resource exhausted';
-  } else if (error.code == 'unauthenticated') {
-    errorMessage = 'Unauthenticated';
-  } else if (error.code == 'unknown') {
-    errorMessage = 'Unknown error';
-  } else {
-    errorMessage = 'Something went wrong 😔';
-  }
-  return errorMessage;
 }
 
 String _checkFirebaseAuthException(

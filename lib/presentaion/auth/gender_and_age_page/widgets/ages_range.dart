@@ -41,12 +41,12 @@ class AgesRange extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(12)),
           ),
           title: Text(
-            state.ages[index],
+            state.ages[index]['value'],
             style: Theme.of(context).textTheme.labelMedium,
           ),
           onTap: () {
             context.read<AgeSelectionCubit>().selectAgeRange(
-                  state.ages[index],
+                  state.ages[index]['value'],
                 );
             Navigator.pop(context);
           },

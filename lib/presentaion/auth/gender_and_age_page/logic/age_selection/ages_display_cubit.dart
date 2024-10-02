@@ -12,7 +12,9 @@ class AgesDisplayCubit extends Cubit<AgesDisplayState> {
     data.fold(
       (errorMessage) =>
           emit(AgesDisplayFailureState(message: errorMessage.toString())),
-      (ages) => emit(AgesDisplaySuccessState(ages: ages)),
+      (ages) => emit(
+        AgesDisplaySuccessState(ages: ages),
+      ),
     );
   }
 }

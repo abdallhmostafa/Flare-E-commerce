@@ -3,6 +3,7 @@ import 'package:flare/core/configs/route/custom_route_animation.dart';
 import 'package:flare/core/configs/route/routes.dart';
 import 'package:flare/data/auth/models/user_creation_request.dart';
 import 'package:flare/data/auth/models/user_sign_in_request.dart';
+import 'package:flare/presentaion/all_categories/presentation/all_categories_page.dart';
 import 'package:flare/presentaion/auth/forget_password/pages/email_sent_page.dart';
 import 'package:flare/presentaion/auth/forget_password/pages/forget_password_page.dart';
 import 'package:flare/presentaion/auth/gender_and_age_page/gender_and_age_page.dart';
@@ -15,6 +16,8 @@ import 'package:flare/presentaion/auth/sign_in/page/sign_in_page.dart';
 import 'package:flare/presentaion/auth/sign_up/logic/sign_up_cubit.dart';
 import 'package:flare/presentaion/auth/sign_up/pages/sign_up_page.dart';
 import 'package:flare/presentaion/home/pages/home_page.dart';
+import 'package:flare/presentaion/products_of_category/presentation/products_of_category_page.dart';
+import 'package:flare/presentaion/products_of_category/presentation/widgets/products_of_gateogry_model.dart';
 import 'package:flare/presentaion/splash/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,9 +34,20 @@ class AppRouter {
         return CustomRouteAnimation(
           child: const HomePage(),
         );
+      case Routes.allCategoriesPage:
+        return CustomRouteAnimation(
+          child: const AllCategoriesPage(),
+        );
       case Routes.emailSentPage:
         return CustomRouteAnimation(
           child: const EmailSentPage(),
+        );
+      case Routes.productsOfCategoryPage:
+        final ProductsOfGateogryModel productsOfGateogryModel =
+            settings.arguments as ProductsOfGateogryModel;
+        return CustomRouteAnimation(
+          child: ProductsOfCategoryPage(
+              productsOfGateogryModel: productsOfGateogryModel),
         );
       case Routes.signInPage:
         return CustomRouteAnimation(

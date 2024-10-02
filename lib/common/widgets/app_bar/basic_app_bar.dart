@@ -7,10 +7,11 @@ class BasicAppBar extends StatelessWidget {
   const BasicAppBar({
     super.key,
     this.text,
-    this.hideBackArrorw,
+    this.hideBackArrorw, this.color,
   });
   final String? text;
   final bool? hideBackArrorw;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class BasicAppBar extends StatelessWidget {
         padding: const EdgeInsets.only(top: 10),
         child: AppBar(
           leadingWidth: 40,
-          backgroundColor: Colors.transparent,
+          backgroundColor: color?? Colors.transparent,
           forceMaterialTransparency: true,
           leading: (hideBackArrorw ?? false)
               ? const SizedBox.shrink()
@@ -34,7 +35,7 @@ class BasicAppBar extends StatelessWidget {
                     onTap: () => context.pop(),
                     child: const Icon(
                       Icons.arrow_back_ios_new_rounded,
-                      color: AppColors.wight,
+                      color: AppColors.white,
                       size: 20,
                     ),
                   ),

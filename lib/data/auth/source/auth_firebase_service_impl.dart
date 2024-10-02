@@ -88,13 +88,13 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
   @override
   Future<Either<dynamic, Map<String, dynamic>?>> getUserData() async {
     try {
-      final User? currentUser = FirebaseAuth.instance.currentUser;
+      final User? currentUser =  FirebaseAuth.instance.currentUser;
       final userData = await FirebaseFirestore.instance
           .collection(AppFirebaseConstant.userCollection)
           .doc(currentUser?.uid)
-          .get()
-          .then((value) => value.data());
-      return Right(userData);
+          .get();
+
+      return Right(userData.data());
     } on FirebaseException catch (e) {
       String errorMessage = checkFirebaseException(e);
       return Left(errorMessage);

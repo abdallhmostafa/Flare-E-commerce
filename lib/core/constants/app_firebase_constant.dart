@@ -3,4 +3,5 @@ abstract class AppFirebaseConstant{
   static const String userCollection = 'users';
   static const String ageCollection = 'ages';
   static const String categoriesCollection = 'categories';
+  static const String products = 'products';
 }

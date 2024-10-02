@@ -22,7 +22,7 @@ class AppBasicButton extends StatelessWidget {
         style: Theme.of(context)
             .textTheme
             .displaySmall!
-            .copyWith(color: AppColors.wight),
+            .copyWith(color: AppColors.white),
       ),
     );
   }

@@ -1,6 +1,8 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flare/common/helpers/firebase_exception.dart';
 import 'package:flare/core/constants/app_firebase_constant.dart';
 import 'package:flare/data/auth/models/user_creation_request.dart';
 import 'package:flare/data/auth/models/user_sign_in_request.dart';
@@ -29,26 +31,22 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
       return const Right("Signup done Successfully 😊");
     } on FirebaseAuthException catch (error) {
       String errorMessage = "Something went wrong 😔";
-      errorMessage = _checkSignUpFirebaseError(error, errorMessage);
+      errorMessage = _checkFirebaseAuthException(error, errorMessage);
 
       return Left(errorMessage);
     }
   }
 
   @override
-  Future<Either> getAges() async {
+  Future<Either<dynamic, List<Map<String, dynamic>>>> getAges() async {
     try {
       final QuerySnapshot<Map<String, dynamic>> ages = await FirebaseFirestore
           .instance
           .collection(AppFirebaseConstant.ageCollection)
           .get();
-      List<String> ageList = [];
-      for (var age in ages.docs) {
-        ageList.add(age['value']);
-      }
-      return Right(ageList);
+      return Right(ages.docs.map((e) => e.data()).toList());
     } catch (error) {
-      return const Left("please try again later 😔");
+      return Left(error);
     }
   }
 
@@ -63,7 +61,7 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
       return const Right("Sign In done Successfully 😊");
     } on FirebaseAuthException catch (error) {
       String errorMessage = "Something went wrong 😔";
-      errorMessage = _checkSignInFirebaseError(error, errorMessage);
+      errorMessage = _checkFirebaseAuthException(error, errorMessage);
 
       return Left(errorMessage);
     }
@@ -77,14 +75,36 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
       return const Right("Password was sent to email 😊");
     } on FirebaseAuthException catch (error) {
       String errorMessage = "Something went wrong 😔";
-      errorMessage = _checkSignInFirebaseError(error, errorMessage);
+      errorMessage = _checkFirebaseAuthException(error, errorMessage);
 
       return Left(errorMessage);
     }
   }
+
+  @override
+  Future<bool> isUserSignIn() async =>
+      FirebaseAuth.instance.currentUser != null ? true : false;
+
+  @override
+  Future<Either<dynamic, Map<String, dynamic>?>> getUserData() async {
+    try {
+      final User? currentUser =  FirebaseAuth.instance.currentUser;
+      final userData = await FirebaseFirestore.instance
+          .collection(AppFirebaseConstant.userCollection)
+          .doc(currentUser?.uid)
+          .get();
+
+      return Right(userData.data());
+    } on FirebaseException catch (e) {
+      String errorMessage = checkFirebaseException(e);
+      return Left(errorMessage);
+    } catch (e) {
+      return const Left("Something went wrong 😔");
+    }
+  }
 }
 
-String _checkSignInFirebaseError(
+String _checkFirebaseAuthException(
     FirebaseAuthException error, String errorMessage) {
   if (error.code == 'user-not-found') {
     errorMessage = 'No user found for that email.';
@@ -102,16 +122,7 @@ String _checkSignInFirebaseError(
     errorMessage = 'Network request failed.';
   } else if (error.code == 'app-not-authorized') {
     errorMessage = 'App not authorized.';
-  } else if (error.code == 'invalid-api-key') {
-    errorMessage = 'Invalid API key.';
-  }
-
-  return errorMessage;
-}
-
-String _checkSignUpFirebaseError(
-    FirebaseAuthException error, String errorMessage) {
-  if (error.code == 'weak-password') {
+  } else if (error.code == 'weak-password') {
     errorMessage = 'The password provided is too weak.';
   } else if (error.code == 'email-already-in-use') {
     errorMessage = 'The account already exists for that email.';

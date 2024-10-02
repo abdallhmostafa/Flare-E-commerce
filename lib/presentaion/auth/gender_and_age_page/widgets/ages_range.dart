@@ -12,7 +12,7 @@ class AgesRange extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-          horizontal: AppConstant.defaultScreenPadding / 2, vertical: 0),
+          horizontal: AppConstant.horizontalScreenPadding / 2, vertical: 0),
       height: MediaQuery.of(context).size.height / 2.4,
       child: BlocBuilder<AgesDisplayCubit, AgesDisplayState>(
         builder: (context, state) {
@@ -41,12 +41,12 @@ class AgesRange extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(12)),
           ),
           title: Text(
-            state.ages[index],
+            state.ages[index]['value'],
             style: Theme.of(context).textTheme.labelMedium,
           ),
           onTap: () {
             context.read<AgeSelectionCubit>().selectAgeRange(
-                  state.ages[index],
+                  state.ages[index]['value'],
                 );
             Navigator.pop(context);
           },

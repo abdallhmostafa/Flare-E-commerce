@@ -39,7 +39,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
         physics: const AlwaysScrollableScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.symmetric(
-              horizontal: AppConstant.defaultScreenPadding),
+              horizontal: AppConstant.horizontalScreenPadding),
           child: Form(
             key: formKey,
             child: Column(

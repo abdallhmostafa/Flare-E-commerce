@@ -5,7 +5,7 @@ sealed class AgesDisplayState {}
 
 final class AgesDisplayLoadingState extends AgesDisplayState {}
 final class AgesDisplaySuccessState extends AgesDisplayState {
-  final List<String> ages;
+  final List<Map> ages;
 
   AgesDisplaySuccessState({required this.ages});
 }

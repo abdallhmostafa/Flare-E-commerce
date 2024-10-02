@@ -24,7 +24,7 @@ class GenderAndAgePage extends StatelessWidget {
           Space.verticalSpace(60),
           Padding(
             padding: const EdgeInsets.symmetric(
-                horizontal: AppConstant.defaultScreenPadding),
+                horizontal: AppConstant.horizontalScreenPadding),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

@@ -2,8 +2,10 @@ import 'package:flare/common/app_basic_reactive_button_cubit/app_basic_reactive_
 import 'package:flare/common/app_basic_reactive_button_cubit/app_reactive_submit_bloc_listner.dart';
 import 'package:flare/common/widgets/button/app_basic_reactive_button.dart';
 import 'package:flare/common/widgets/app_bar/basic_app_bar.dart';
+import 'package:flare/core/configs/route/routes.dart';
 import 'package:flare/core/constants/app_constant.dart';
 import 'package:flare/common/helpers/space.dart';
+import 'package:flare/core/extentions/navigator_extention.dart';
 import 'package:flare/data/auth/models/user_sign_in_request.dart';
 import 'package:flare/domain/auth/usecase/sign_in_use_case.dart';
 import 'package:flare/presentaion/auth/sign_in/logic/cubit/sing_in_cubit.dart';
@@ -26,7 +28,7 @@ class EnterPasswordPage extends StatelessWidget {
         physics: const AlwaysScrollableScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.symmetric(
-              horizontal: AppConstant.defaultScreenPadding),
+              horizontal: AppConstant.horizontalScreenPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -58,13 +60,12 @@ class EnterPasswordPage extends StatelessWidget {
               Space.verticalSpace(16),
               const ForgetPasswordSection(),
               Space.verticalSpace(20),
-
               AppReactiveSubmitBlocListner(
                 successMessage:
                     "Congratulations!🎉🥳, You have sign in successfully",
                 forSuccessState: () {
-                  // context.pushNamedAndRemoveUntil(Routes.homePage,
-                  //     predicate: predicate);
+                  context.pushNamedAndRemoveUntil(Routes.homePage,
+                      predicate: (route) => false);
                 },
               ),
             ],

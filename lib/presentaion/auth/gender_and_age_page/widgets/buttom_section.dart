@@ -1,7 +1,9 @@
 import 'package:flare/common/app_basic_reactive_button_cubit/app_basic_reactive_button_cubit.dart';
 import 'package:flare/common/widgets/button/app_basic_reactive_button.dart';
+import 'package:flare/core/configs/route/routes.dart';
 import 'package:flare/core/configs/theme/app_colors.dart';
 import 'package:flare/core/constants/app_constant.dart';
+import 'package:flare/core/extentions/navigator_extention.dart';
 import 'package:flare/data/auth/models/user_creation_request.dart';
 import 'package:flare/domain/auth/usecase/sign_up_use_case.dart';
 import 'package:flare/presentaion/auth/gender_and_age_page/logic/age_selection_cubit.dart';
@@ -28,7 +30,7 @@ class ButtomSection extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: AppConstant.defaultScreenPadding),
+                  horizontal: AppConstant.horizontalScreenPadding),
               child: AppBasicReactiveButton(
                   onPressed: () {
                     final AgeSelectionCubit ageCubit =
@@ -48,7 +50,15 @@ class ButtomSection extends StatelessWidget {
                   text: "Finish"),
             ),
           ),
-          const AppReactiveSubmitBlocListner(),
+          AppReactiveSubmitBlocListner(
+            successMessage: "Congratulations! You have successfully signed up.\nLet's go to the sign in page",
+            forSuccessState: () {
+              context.pushNamedAndRemoveUntil(
+                Routes.signInPage,
+                predicate: (route) => false,
+              );
+            },
+          ),
         ],
       ),
     );

@@ -11,4 +11,5 @@ abstract class Routes {
   static const String genderAndAgePage = '/gender_and_age_page';
   static const String allCategoriesPage ='/all_categories_page';
   static const String productsOfCategoryPage ='/products_of_category_page';
+  static const String searchPage= '/search_page'; 
 }

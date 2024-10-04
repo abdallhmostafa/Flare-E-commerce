@@ -62,4 +62,23 @@ class ProductFirebaseServiceImpl implements ProductFirebaseServiceRepo {
       return left(e.toString());
     }
   }
+
+  @override
+  Future<Either<dynamic, List<Map<String, dynamic>>>> getProductsByTitle(
+      {required String productTitle}) async {
+    try {
+      final response = await FirebaseFirestore.instance
+          .collection(AppFirebaseConstant.products)
+          .where(
+            'title',
+            isGreaterThanOrEqualTo: productTitle,
+          )
+          .get();
+      return right(response.docs.map((e) => e.data()).toList());
+    } on FirebaseException catch (e) {
+      return left(checkFirebaseException(e));
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
 }

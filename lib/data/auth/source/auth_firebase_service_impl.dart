@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,10 +29,7 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
       });
       return const Right("Signup done Successfully 😊");
     } on FirebaseAuthException catch (error) {
-      String errorMessage = "Something went wrong 😔";
-      errorMessage = _checkFirebaseAuthException(error, errorMessage);
-
-      return Left(errorMessage);
+      return Left(_checkFirebaseAuthException(error));
     }
   }
 
@@ -60,10 +56,7 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
 
       return const Right("Sign In done Successfully 😊");
     } on FirebaseAuthException catch (error) {
-      String errorMessage = "Something went wrong 😔";
-      errorMessage = _checkFirebaseAuthException(error, errorMessage);
-
-      return Left(errorMessage);
+      return Left(_checkFirebaseAuthException(error));
     }
   }
 
@@ -74,10 +67,7 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
 
       return const Right("Password was sent to email 😊");
     } on FirebaseAuthException catch (error) {
-      String errorMessage = "Something went wrong 😔";
-      errorMessage = _checkFirebaseAuthException(error, errorMessage);
-
-      return Left(errorMessage);
+      return Left(_checkFirebaseAuthException(error));
     }
   }
 
@@ -88,7 +78,7 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
   @override
   Future<Either<dynamic, Map<String, dynamic>?>> getUserData() async {
     try {
-      final User? currentUser =  FirebaseAuth.instance.currentUser;
+      final User? currentUser = FirebaseAuth.instance.currentUser;
       final userData = await FirebaseFirestore.instance
           .collection(AppFirebaseConstant.userCollection)
           .doc(currentUser?.uid)
@@ -104,8 +94,8 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
   }
 }
 
-String _checkFirebaseAuthException(
-    FirebaseAuthException error, String errorMessage) {
+String _checkFirebaseAuthException(FirebaseAuthException error) {
+  String errorMessage = '';
   if (error.code == 'user-not-found') {
     errorMessage = 'No user found for that email.';
   } else if (error.code == 'wrong-password') {

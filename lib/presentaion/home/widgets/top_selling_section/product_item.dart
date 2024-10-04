@@ -14,18 +14,21 @@ class ProductItem extends StatelessWidget {
     required this.productName,
     required this.price,
     required this.deccoutPrice,
+    this.isThereLeftMargin = true,
   });
   final String? networkImage;
   final String productName;
   final String price;
   final String deccoutPrice;
+  final bool isThereLeftMargin;
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 180.w,
       height: 300.h,
       clipBehavior: Clip.hardEdge,
-      margin: const EdgeInsets.only(right: 12),
+      margin:
+          isThereLeftMargin ? EdgeInsets.only(right: 12.w) : EdgeInsets.zero,
       decoration: BoxDecoration(
         color: AppColors.secondBackground,
         borderRadius: BorderRadius.circular(12),

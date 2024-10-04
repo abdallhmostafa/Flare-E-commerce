@@ -4,6 +4,7 @@ part of 'get_product_cubit.dart';
 sealed class GetProductState {}
 
 final class GetProductLoadingState extends GetProductState {}
+final class GetProductInitialState extends GetProductState {}
 
 final class GetProductFailureState extends GetProductState {
   final String failureMessage;

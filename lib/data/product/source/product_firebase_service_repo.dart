@@ -5,4 +5,7 @@ abstract class ProductFirebaseServiceRepo {
   Future<Either<dynamic, List<Map<String, dynamic>>>> getNewInItems();
   Future<Either<dynamic, List<Map<String, dynamic>>>> getProductsByCategoryId(
       {required String categoryId});
+
+  Future<Either<dynamic, List<Map<String, dynamic>>>> getProductsByTitle(
+      {required String productTitle});
 }

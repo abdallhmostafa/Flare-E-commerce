@@ -18,6 +18,7 @@ import 'package:flare/presentaion/auth/sign_up/pages/sign_up_page.dart';
 import 'package:flare/presentaion/home/pages/home_page.dart';
 import 'package:flare/presentaion/products_of_category/presentation/products_of_category_page.dart';
 import 'package:flare/presentaion/products_of_category/presentation/widgets/products_of_gateogry_model.dart';
+import 'package:flare/presentaion/search/presentation/search_page.dart';
 import 'package:flare/presentaion/splash/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,6 +42,10 @@ class AppRouter {
       case Routes.emailSentPage:
         return CustomRouteAnimation(
           child: const EmailSentPage(),
+        );
+      case Routes.searchPage:
+        return CustomRouteAnimation(
+          child: const SearchPage(),
         );
       case Routes.productsOfCategoryPage:
         final ProductsOfGateogryModel productsOfGateogryModel =

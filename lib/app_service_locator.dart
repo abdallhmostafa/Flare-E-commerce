@@ -19,6 +19,7 @@ import 'package:flare/domain/category/category_use_case/category_use_case.dart';
 import 'package:flare/domain/product/use_cases/get_new_in_items_use_case.dart';
 import 'package:flare/domain/product/product_repository/product_domain_repository.dart';
 import 'package:flare/domain/product/use_cases/get_products_by_category_id.dart';
+import 'package:flare/domain/product/use_cases/get_products_by_title_use_case.dart';
 import 'package:flare/domain/product/use_cases/get_top_selling_items_use_case.dart';
 import 'package:get_it/get_it.dart';
 
@@ -56,6 +57,8 @@ class AppServiceLocator {
     getIt.registerSingleton<GetTopSellingItemsUseCase>(
         GetTopSellingItemsUseCase());
     getIt.registerSingleton<GetNewInItemsUseCase>(GetNewInItemsUseCase());
+    getIt.registerSingleton<GetProductsByTitleUseCase>(
+        GetProductsByTitleUseCase());
     getIt.registerSingleton<GetProductsByCategoryIdUseCase>(
         GetProductsByCategoryIdUseCase());
   }

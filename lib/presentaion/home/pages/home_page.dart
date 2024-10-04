@@ -1,5 +1,7 @@
 import 'package:flare/common/helpers/space.dart';
+import 'package:flare/core/configs/route/routes.dart';
 import 'package:flare/core/constants/app_constant.dart';
+import 'package:flare/core/extentions/navigator_extention.dart';
 import 'package:flare/presentaion/home/widgets/category_section/category_section.dart';
 import 'package:flare/presentaion/home/widgets/header_section/header_section.dart';
 import 'package:flare/presentaion/home/widgets/new_in_section/new_in_section.dart';
@@ -27,7 +29,11 @@ class HomePage extends StatelessWidget {
                   [
                     const HeaderSection(),
                     Space.verticalSpace(24),
-                    const SearchFieldSection(),
+                    GestureDetector(
+                        onTap: () => context.pushNamed(Routes.searchPage),
+                        child: const SearchFieldSection(
+                          enabled: false
+                        )),
                     Space.verticalSpace(24),
                     const CategorySection(),
                     const TopSellingSection(),

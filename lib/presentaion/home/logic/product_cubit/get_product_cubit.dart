@@ -5,10 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'get_product_state.dart';
 
 class GetProductCubit extends Cubit<GetProductState> {
-  GetProductCubit({required this.useCase}) : super(GetProductLoadingState());
+  GetProductCubit({required this.useCase}) : super(GetProductInitialState());
   final UseCase useCase;
 
   void getProducts({dynamic params}) async {
+    emit(GetProductLoadingState());
     final response = await useCase.call(params: params);
     response.fold(
       (failure) => emit(
@@ -20,5 +21,8 @@ class GetProductCubit extends Cubit<GetProductState> {
         GetProductSuccessState(products: product as List<ProductEntity>),
       ),
     );
+  }
+  void clearProducts() {
+    emit(GetProductInitialState());
   }
 }

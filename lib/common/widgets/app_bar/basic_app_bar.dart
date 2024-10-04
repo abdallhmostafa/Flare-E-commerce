@@ -2,16 +2,22 @@ import 'package:flare/core/configs/theme/app_colors.dart';
 import 'package:flare/core/constants/app_constant.dart';
 import 'package:flare/core/extentions/navigator_extention.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BasicAppBar extends StatelessWidget {
   const BasicAppBar({
     super.key,
     this.text,
-    this.hideBackArrorw, this.color,
+    this.hideBackArrorw,
+    this.color,
+    this.actions,
+    this.titleWidget,
   });
   final String? text;
   final bool? hideBackArrorw;
   final Color? color;
+  final List<Widget>? actions;
+  final Widget? titleWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +27,9 @@ class BasicAppBar extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(top: 10),
         child: AppBar(
-          leadingWidth: 40,
-          backgroundColor: color?? Colors.transparent,
+          actions: actions,
+          leadingWidth: 40.w,
+          backgroundColor: color ?? Colors.transparent,
           forceMaterialTransparency: true,
           leading: (hideBackArrorw ?? false)
               ? const SizedBox.shrink()
@@ -41,7 +48,7 @@ class BasicAppBar extends StatelessWidget {
                   ),
                 ),
           elevation: 0,
-          title: Text(text ?? ''),
+          title: titleWidget ?? Text(text ?? ''),
         ),
       ),
     );

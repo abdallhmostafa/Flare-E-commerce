@@ -5,14 +5,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SearchFieldSection extends StatelessWidget {
-  const SearchFieldSection({super.key});
+  const SearchFieldSection({super.key, this.enabled, this.onChanged});
+  final bool? enabled;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      enabled: enabled,
       textInputAction: TextInputAction.search,
       dragStartBehavior: DragStartBehavior.down,
       style: Theme.of(context).textTheme.labelMedium,
+      onChanged: onChanged ,
+      onSubmitted: onChanged,
       decoration: InputDecoration(
         hintText: 'Search',
         contentPadding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),

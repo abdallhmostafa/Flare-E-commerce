@@ -58,4 +58,22 @@ class ProductRepoImpl implements ProductDomainRepository {
       ),
     );
   }
+
+  @override
+  Future<Either> getProductsByTitle({required String productTitle}) async {
+    final productsByTitle =
+        await AppServiceLocator.getIt<ProductFirebaseServiceRepo>()
+            .getProductsByTitle(productTitle: productTitle);
+
+    return productsByTitle.fold(
+      (failure) => left(failure),
+      (prducts) => right(
+        prducts
+            .map(
+              (product) => ProductModel.fromJson(product).toEntity(),
+            )
+            .toList(),
+      ),
+    );
+  }
 }

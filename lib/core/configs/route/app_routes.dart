@@ -3,6 +3,7 @@ import 'package:flare/core/configs/route/custom_route_animation.dart';
 import 'package:flare/core/configs/route/routes.dart';
 import 'package:flare/data/auth/models/user_creation_request.dart';
 import 'package:flare/data/auth/models/user_sign_in_request.dart';
+import 'package:flare/domain/product/product_entity/product_entity.dart';
 import 'package:flare/presentaion/all_categories/presentation/all_categories_page.dart';
 import 'package:flare/presentaion/auth/forget_password/pages/email_sent_page.dart';
 import 'package:flare/presentaion/auth/forget_password/pages/forget_password_page.dart';
@@ -15,7 +16,12 @@ import 'package:flare/presentaion/auth/sign_in/page/enter_password_page.dart';
 import 'package:flare/presentaion/auth/sign_in/page/sign_in_page.dart';
 import 'package:flare/presentaion/auth/sign_up/logic/sign_up_cubit.dart';
 import 'package:flare/presentaion/auth/sign_up/pages/sign_up_page.dart';
+import 'package:flare/presentaion/cart/presentation/cart_page.dart';
 import 'package:flare/presentaion/home/pages/home_page.dart';
+import 'package:flare/presentaion/product_detail_page/logic/select_color_cubit.dart';
+import 'package:flare/presentaion/product_detail_page/logic/select_quantity_cubit.dart';
+import 'package:flare/presentaion/product_detail_page/logic/select_size_cubit.dart';
+import 'package:flare/presentaion/product_detail_page/presentation/product_detail_page.dart';
 import 'package:flare/presentaion/products_of_category/presentation/products_of_category_page.dart';
 import 'package:flare/presentaion/products_of_category/presentation/widgets/products_of_gateogry_model.dart';
 import 'package:flare/presentaion/search/presentation/search_page.dart';
@@ -43,9 +49,28 @@ class AppRouter {
         return CustomRouteAnimation(
           child: const EmailSentPage(),
         );
+      case Routes.cartPage:
+        return CustomRouteAnimation(
+          child: const CartPage(),
+        );
       case Routes.searchPage:
         return CustomRouteAnimation(
           child: const SearchPage(),
+        );
+      case Routes.productDetailPage:
+        ProductEntity productEntity = settings.arguments as ProductEntity;
+        return CustomRouteAnimation(
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => SelectQuantityCubit()),
+              BlocProvider(create: (_) => SelectSizeCubit()),
+              BlocProvider(create: (_) => SelectColorCubit()),
+              BlocProvider(create: (_) => AppBasicReactiveButtonCubit()),
+            ],
+            child: ProductDetailPage(
+              productEntity: productEntity,
+            ),
+          ),
         );
       case Routes.productsOfCategoryPage:
         final ProductsOfGateogryModel productsOfGateogryModel =

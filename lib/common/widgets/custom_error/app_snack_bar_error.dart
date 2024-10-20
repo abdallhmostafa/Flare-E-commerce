@@ -11,6 +11,7 @@ SnackBar appSnackBarError(
         borderRadius: BorderRadius.all(Radius.circular(12)),
       ),
       behavior: SnackBarBehavior.floating,
+      dismissDirection: DismissDirection.horizontal,
       content: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FavoriteIconButton extends StatefulWidget {
-  const FavoriteIconButton({super.key, this.onTap});
+  const FavoriteIconButton({super.key, this.onTap, this.paddingSize, this.iconSize});
   final VoidCallback? onTap;
+  final double? paddingSize;
+  final double? iconSize;
 
   @override
   State<FavoriteIconButton> createState() => _FavoriteIconButtonState();
@@ -24,17 +26,19 @@ class _FavoriteIconButtonState extends State<FavoriteIconButton> {
       focusColor: AppColors.primary,
       hoverColor: AppColors.primary,
       splashColor: AppColors.primary,
+      customBorder: const CircleBorder(),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
-        padding: EdgeInsets.all(3.w),
+        padding: EdgeInsets.all(widget.paddingSize ?? 3.w),
         decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 224, 224, 224),
+          // color: Color.fromARGB(255, 224, 224, 224),
+          color: AppColors.secondBackground,
           shape: BoxShape.circle,
         ),
         child: Icon(
-          Icons.favorite,
+          isFavorite ? Icons.favorite : Icons.favorite_outline_rounded,
           color: isFavorite ? AppColors.primary : AppColors.white,
-          size: 20.w,
+          size:widget.iconSize?? 20.w,
         ),
       ),
     );

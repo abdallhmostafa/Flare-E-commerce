@@ -25,5 +25,6 @@ class AppTextTheme {
         fontSize: 24.0, fontWeight: FontWeight.bold, color: AppColors.white),
     labelSmall: const TextStyle(fontSize: 14.0, color: Colors.white),
     labelMedium: const TextStyle(fontSize: 16.0, color: Colors.white),
+    
   );
 }

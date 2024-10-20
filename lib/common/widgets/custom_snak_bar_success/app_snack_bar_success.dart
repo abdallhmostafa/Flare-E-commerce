@@ -10,6 +10,8 @@ SnackBar appSnackBarSuccess({String? message, required BuildContext context}) {
         borderRadius: BorderRadius.all(Radius.circular(12)),
       ),
       behavior: SnackBarBehavior.floating,
+    dismissDirection: DismissDirection.horizontal,
+
       content: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

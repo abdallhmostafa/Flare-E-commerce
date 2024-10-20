@@ -1,3 +1,5 @@
+import 'package:flare/core/configs/route/routes.dart';
+import 'package:flare/core/extentions/navigator_extention.dart';
 import 'package:flare/core/usecase/usecase.dart';
 import 'package:flare/presentaion/home/logic/product_cubit/get_product_cubit.dart';
 import 'package:flare/presentaion/home/widgets/product_shimmer.dart';
@@ -46,11 +48,15 @@ ListView _successState(GetProductSuccessState state) {
     itemCount: state.products.length,
     itemBuilder: (context, index) {
       final product = state.products[index];
-      return ProductItem(
-        networkImage: product.images[2],
-        productName: product.title,
-        deccoutPrice: product.discountedPrice.toString(),
-        price: product.price.toString(),
+      return GestureDetector(
+        onTap: () =>
+            context.pushNamed(Routes.productDetailPage, argument: product),
+        child: ProductItem(
+          networkImage: product.images[2],
+          productName: product.title,
+          deccoutPrice: product.discountedPrice.toString(),
+          price: product.price.toString(),
+        ),
       );
     },
   );

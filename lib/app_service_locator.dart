@@ -4,6 +4,9 @@ import 'package:flare/data/auth/source/auth_firebase_service_impl.dart';
 import 'package:flare/data/category/repository/category_repo_impl.dart';
 import 'package:flare/data/category/source/category_firebase_service.dart';
 import 'package:flare/data/category/source/category_firebase_service_impl.dart';
+import 'package:flare/data/order/repository/order_repo_impl.dart';
+import 'package:flare/data/order/source/order_firebase_service_impl.dart';
+import 'package:flare/data/order/source/order_firebase_service_repo.dart';
 import 'package:flare/data/product/repository/product_repo_impl.dart';
 import 'package:flare/data/product/source/product_firebase_service_impl.dart';
 import 'package:flare/data/product/source/product_firebase_service_repo.dart';
@@ -16,6 +19,8 @@ import 'package:flare/domain/auth/usecase/sign_in_use_case.dart';
 import 'package:flare/domain/auth/usecase/sign_up_use_case.dart';
 import 'package:flare/domain/category/category_repository/category_domain_repo.dart';
 import 'package:flare/domain/category/category_use_case/category_use_case.dart';
+import 'package:flare/domain/order/order_domain_repository.dart';
+import 'package:flare/domain/order/order_use_case.dart';
 import 'package:flare/domain/product/use_cases/get_new_in_items_use_case.dart';
 import 'package:flare/domain/product/product_repository/product_domain_repository.dart';
 import 'package:flare/domain/product/use_cases/get_products_by_category_id.dart';
@@ -36,11 +41,14 @@ class AppServiceLocator {
         CategoryFirebaseServiceImpl());
     getIt.registerSingleton<ProductFirebaseServiceRepo>(
         ProductFirebaseServiceImpl());
+    getIt.registerSingleton<OrderFirebaseServiceRepo>(
+        OrderFirebaseServiceImpl());
 
     // ---------------------- Repositories classes ---------------------- //
     getIt.registerSingleton<AuthRepo>(AuthRepoImpl());
     getIt.registerSingleton<CategoryDomainRepo>(CategoryRepoImpl());
     getIt.registerSingleton<ProductDomainRepository>(ProductRepoImpl());
+    getIt.registerSingleton<OrderDomainRepository>(OrderRepoImpl());
 
     // ---------------------- Use cases classes ---------------------- //
 
@@ -61,5 +69,8 @@ class AppServiceLocator {
         GetProductsByTitleUseCase());
     getIt.registerSingleton<GetProductsByCategoryIdUseCase>(
         GetProductsByCategoryIdUseCase());
+
+    // -------------- Order  -------------- //
+    getIt.registerSingleton<AddOrderUseCase>(AddOrderUseCase());
   }
 }

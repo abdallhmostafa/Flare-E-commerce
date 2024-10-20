@@ -5,9 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppBasicReactiveButton extends StatelessWidget {
-  const AppBasicReactiveButton({super.key, this.text, required this.onPressed});
+  const AppBasicReactiveButton({
+    super.key,
+    this.text,
+    required this.onPressed,
+    this.haveChild = false,
+    this.child,
+  });
   final String? text;
   final VoidCallback onPressed;
+  final bool haveChild;
+  final Widget? child;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppBasicReactiveButtonCubit,
@@ -16,8 +24,10 @@ class AppBasicReactiveButton extends StatelessWidget {
         return ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
-              elevation: 0,
-              padding: const EdgeInsetsDirectional.symmetric(vertical: 12)),
+            elevation: 0,
+            padding: const EdgeInsetsDirectional.symmetric(
+                vertical: 16, horizontal: 24),
+          ),
           child: state is AppBasicReactiveButtonLoadingState
               ? const Center(
                   child: AppCustomLoading(
@@ -25,13 +35,15 @@ class AppBasicReactiveButton extends StatelessWidget {
                     width: 30,
                   ),
                 )
-              : Text(
-                  text ?? "Continue",
-                  style: Theme.of(context)
-                      .textTheme
-                      .displaySmall!
-                      .copyWith(color: AppColors.white),
-                ),
+              : haveChild
+                  ? child
+                  : Text(
+                      text ?? "Continue",
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall!
+                          .copyWith(color: AppColors.white),
+                    ),
         );
       },
     );

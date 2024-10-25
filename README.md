@@ -1,16 +1,33 @@
-# flare
+#Flare E-Commerce App 🛒
+An E-Commerce app built with Flutter using Firebase for backend services and implementing Clean Architecture principles. This app provides users with seamless browsing, shopping, and secure transactions in an intuitive mobile interface.
 
-A new Flutter project.
+##Features ✨
+User Authentication (Sign up, login, logout) with Firebase Auth.
+Product Catalog: Browse products by categories and apply filters.
+Shopping Cart: Add, edit, and remove products from the cart.
+Wishlist: Save favorite products for later.
+Order Management: Place orders and track their status.
+Real-Time Database: Sync user data (cart, wishlist, orders) with Firebase Firestore.
+Cloud Storage: Store product images.
+Push Notifications for order updates (Firebase Cloud Messaging).
+##Tech Stack 🛠️
+Flutter for cross-platform app development.
+Firebase for backend services.
+Clean Architecture for scalable and maintainable code.
+BLoC"Cubit" for state management.
+Dart as the programming language.
+##Project Structure 📂
+The app follows the Clean Architecture principles, organized into three layers:
 
-## Getting Started
+Data Layer:
 
-This project is a starting point for a Flutter application.
+Handles data sources and repositories.
+Integrates with Firebase services (Firestore, Auth, Storage).
+Domain Layer:
 
-A few resources to get you started if this is your first Flutter project:
+Defines the business logic and use cases.
+It contains repository interfaces to interact with data sources.
+Presentation Layer:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Manages the UI components and user interactions.
+Organized into modules/screens for easier navigation and testing.

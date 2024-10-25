@@ -1,7 +1,7 @@
 import 'package:flare/core/configs/route/app_routes.dart';
 import 'package:flare/core/configs/route/routes.dart';
 import 'package:flare/core/configs/theme/app_theme.dart';
-import 'package:flare/presentaion/splash/cubit/splash_cubit.dart';
+import 'package:flare/presentation/splash/cubit/splash_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

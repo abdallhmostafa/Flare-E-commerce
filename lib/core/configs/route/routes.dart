@@ -14,4 +14,6 @@ abstract class Routes {
   static const String searchPage = '/search_page';
   static const String productDetailPage = '/product_detail_page';
   static const String cartPage = '/cart_page';
+  static const String checkoutPage= '/checkout_page';
+  static const String orderPlacedPage= '/order_placed_page';
 }

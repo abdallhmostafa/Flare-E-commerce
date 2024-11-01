@@ -11,4 +11,5 @@ class AppVectorsAssets {
   static const search = '${_basePath}search$format';
   static const notFound = '${_basePath}not_found$format';
   static const cartBag = '${_basePath}cart_bag$format';
+  static const discountShape = '${_basePath}discountshape$format';
 }

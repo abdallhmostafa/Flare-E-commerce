@@ -2,7 +2,9 @@ import 'package:flare/common/app_basic_reactive_button_cubit/app_reactive_submit
 import 'package:flare/common/helpers/space.dart';
 import 'package:flare/common/widgets/app_bar/basic_app_bar.dart';
 import 'package:flare/common/widgets/favorite_icon_button/favorite_icon_button.dart';
+import 'package:flare/core/configs/route/routes.dart';
 import 'package:flare/core/constants/app_constant.dart';
+import 'package:flare/core/extentions/navigator_extention.dart';
 import 'package:flare/domain/product/product_entity/product_entity.dart';
 import 'package:flare/presentation/product_detail_page/presentation/widgets/add_to_bag_button.dart';
 import 'package:flare/presentation/product_detail_page/presentation/widgets/product_images_section.dart';
@@ -31,14 +33,14 @@ class ProductDetailPage extends StatelessWidget {
           horizontal: AppConstant.horizontalScreenPadding),
       child: Stack(
         children: [
-          _widgetsOfPage(),
+          _widgetsOfPage(context),
           _addToBagButton(context),
         ],
       ),
     );
   }
 
-  SingleChildScrollView _widgetsOfPage() {
+  SingleChildScrollView _widgetsOfPage(BuildContext context) {
     return SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
       child: Column(
@@ -55,7 +57,12 @@ class ProductDetailPage extends StatelessWidget {
           const ProductInfoSection(),
           Space.verticalSpace(24),
           const ReviewsSection(),
-          const AppReactiveSubmitBlocListner(successMessage:"Product added to bag successfully✨"),
+          AppReactiveSubmitBlocListner(
+            successMessage: "Product added to bag successfully✨",
+            forSuccessState: () {
+              context.pushNamed(Routes.cartPage);
+            },
+          ),
           Space.verticalSpace(80),
         ],
       ),

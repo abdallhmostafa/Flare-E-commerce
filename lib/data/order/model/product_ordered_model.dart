@@ -1,6 +1,6 @@
-import 'package:flare/domain/order/entities/order_entity.dart';
+import 'package:flare/domain/order/entities/product_ordered_entity.dart';
 
-class OrderModelRequest {
+class ProductOrderedModel {
   final String productId;
   final String productTitle;
   final int productQuantity;
@@ -10,8 +10,9 @@ class OrderModelRequest {
   final double totalPrice;
   final String productImage;
   final String createdAt;
+  final String id;
 
-  OrderModelRequest({
+  ProductOrderedModel({
     required this.productId,
     required this.productTitle,
     required this.productQuantity,
@@ -21,24 +22,13 @@ class OrderModelRequest {
     required this.totalPrice,
     required this.productImage,
     required this.createdAt,
+    required this.id,
   });
 
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'productId': productId,
-      'productTitle': productTitle,
-      'productQuantity': productQuantity,
-      'productColor': productColor,
-      'productSize': productSize,
-      'productPrice': productPrice,
-      'totalPrice': totalPrice,
-      'productImage': productImage,
-      'createdAt': createdAt,
-    };
-  }
+ 
 
-  factory OrderModelRequest.fromJson(Map<String, dynamic> map) {
-    return OrderModelRequest(
+  factory ProductOrderedModel.fromJson(Map<String, dynamic> map) {
+    return ProductOrderedModel(
       productId: map['productId'] as String,
       productTitle: map['productTitle'] as String,
       productQuantity: map['productQuantity'] as int,
@@ -48,13 +38,14 @@ class OrderModelRequest {
       totalPrice: map['totalPrice'] as double,
       productImage: map['productImage'] as String,
       createdAt: map['createdAt'] as String,
+      id: map['id'] as String,
     );
   }
 }
 
-extension OrderModelRequestExtension on OrderModelRequest {
-  OrderEntity toEntity() {
-    return OrderEntity(
+extension ProductOrderedModelExtension on ProductOrderedModel {
+  ProductOrderedEntity toEntity() {
+    return ProductOrderedEntity(
       productId: productId,
       productTitle: productTitle,
       productQuantity: productQuantity,
@@ -64,6 +55,7 @@ extension OrderModelRequestExtension on OrderModelRequest {
       totalPrice: totalPrice,
       productImage: productImage,
       createdAt: createdAt,
+      id: id,
     );
   }
 }

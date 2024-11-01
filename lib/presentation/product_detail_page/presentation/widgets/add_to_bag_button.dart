@@ -4,7 +4,7 @@ import 'package:flare/common/widgets/button/app_basic_reactive_button.dart';
 import 'package:flare/common/widgets/custom_snak_bar_wearing/custom_snak_bar_wearing.dart';
 import 'package:flare/core/configs/theme/app_colors.dart';
 import 'package:flare/data/order/model/order_model_request.dart';
-import 'package:flare/domain/order/order_use_case.dart';
+import 'package:flare/domain/order/use_case/order_use_case.dart';
 import 'package:flare/domain/product/product_entity/product_entity.dart';
 import 'package:flare/presentation/product_detail_page/logic/select_color_cubit.dart';
 import 'package:flare/presentation/product_detail_page/logic/select_quantity_cubit.dart';

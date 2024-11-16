@@ -11,7 +11,7 @@ abstract class ProductFirebaseServiceRepo {
       {required String productTitle});
   Future<Either> removeOrAddFavoriteProduct({required ProductEntity product});
   Future<bool> isFavoriteProduct({required String productId});
-  Future<Either> getFavoriteProducts();
+   Future<Either<dynamic, List<Map<String, dynamic>>>> getFavoriteProducts();
 
 
 }

@@ -141,7 +141,8 @@ class ProductFirebaseServiceImpl implements ProductFirebaseServiceRepo {
   }
 
   @override
-  Future<Either> getFavoriteProducts() async {
+  Future<Either<dynamic, List<Map<String, dynamic>>>>
+      getFavoriteProducts() async {
     try {
       final user = FirebaseAuth.instance.currentUser;
       final products = await FirebaseFirestore.instance

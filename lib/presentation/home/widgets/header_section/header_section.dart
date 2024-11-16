@@ -29,7 +29,7 @@ class HeaderSection extends StatelessWidget {
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _userProfileImage(state),
+                _userProfileImage(state, context),
                 _userGender(state, context),
                 _card(context),
               ],
@@ -91,18 +91,22 @@ class HeaderSection extends StatelessWidget {
     );
   }
 
-  Container _userProfileImage(GetUserInfoSuccessState state) {
-    return Container(
-      width: 40.w,
-      height: 40.h,
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(
-        color: AppColors.secondBackground,
-        shape: BoxShape.circle,
-        image: DecorationImage(
-          image: state.userResponseEntity.image.isEmpty
-              ? const AssetImage(AppImagesAssets.profile)
-              : NetworkImage(state.userResponseEntity.image),
+  GestureDetector _userProfileImage(
+      GetUserInfoSuccessState state, BuildContext context) {
+    return GestureDetector(
+      onTap: () => context.pushNamed(Routes.settingPage),
+      child: Container(
+        width: 40.w,
+        height: 40.h,
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          color: AppColors.secondBackground,
+          shape: BoxShape.circle,
+          image: DecorationImage(
+            image: state.userResponseEntity.image.isEmpty
+                ? const AssetImage(AppImagesAssets.profile)
+                : NetworkImage(state.userResponseEntity.image),
+          ),
         ),
       ),
     );

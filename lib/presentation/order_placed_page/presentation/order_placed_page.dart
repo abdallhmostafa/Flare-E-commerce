@@ -69,7 +69,11 @@ class OrderPlacedPage extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: AppBasicButton(
-                            onPressed: () {}, text: "See Order details"),
+                          onPressed: () {
+                            context.pushReplacementNamed(Routes.homePage);
+                          },
+                          text: "Continue Shopping",
+                        ),
                       ),
                     ],
                   ),

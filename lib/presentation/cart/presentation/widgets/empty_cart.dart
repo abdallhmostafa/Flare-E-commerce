@@ -1,6 +1,7 @@
 import 'package:flare/common/helpers/space.dart';
 import 'package:flare/common/widgets/button/app_basic_button.dart';
 import 'package:flare/core/configs/assets/app_vectors_assets.dart';
+import 'package:flare/core/extentions/navigator_extention.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,7 +29,9 @@ class EmptyCart extends StatelessWidget {
           ),
           Space.verticalSpace(27),
           AppBasicButton(
-            onPressed: () {},
+            onPressed: () {
+              context.pop();
+            },
             text: "Explore Categories",
           ),
         ],

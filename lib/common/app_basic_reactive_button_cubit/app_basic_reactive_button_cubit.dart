@@ -14,7 +14,7 @@ class AppBasicReactiveButtonCubit extends Cubit<AppBasicReactiveButtonState> {
       final Either result = await useCase(params: params);
       result.fold(
         (failure) => emit(AppBasicReactiveButtonFailureState(errorMessage: failure.toString())),
-        (success) => emit(AppBasicReactiveButtonSuccessState()),
+        (success) => emit(AppBasicReactiveButtonSuccessState(data: success)),
       );
     } catch (e) {
       emit(AppBasicReactiveButtonFailureState(errorMessage: e.toString()));

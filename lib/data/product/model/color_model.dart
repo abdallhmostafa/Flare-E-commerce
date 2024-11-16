@@ -27,3 +27,11 @@ extension ColorX on Color {
     );
   }
 }
+extension ColorEntityX on ColorEntity {
+  Color fromEntity() {
+    return Color(
+      title: title,
+      hexCode: hexCode,
+    );
+  }
+} 

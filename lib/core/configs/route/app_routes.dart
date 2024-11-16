@@ -1,31 +1,39 @@
+import 'package:flare/app_service_locator.dart';
 import 'package:flare/common/app_basic_reactive_button_cubit/app_basic_reactive_button_cubit.dart';
 import 'package:flare/core/configs/route/custom_route_animation.dart';
 import 'package:flare/core/configs/route/routes.dart';
 import 'package:flare/data/auth/models/user_creation_request.dart';
 import 'package:flare/data/auth/models/user_sign_in_request.dart';
+import 'package:flare/domain/order/entities/product_ordered_entity.dart';
 import 'package:flare/domain/product/product_entity/product_entity.dart';
-import 'package:flare/presentaion/all_categories/presentation/all_categories_page.dart';
-import 'package:flare/presentaion/auth/forget_password/pages/email_sent_page.dart';
-import 'package:flare/presentaion/auth/forget_password/pages/forget_password_page.dart';
-import 'package:flare/presentaion/auth/gender_and_age_page/gender_and_age_page.dart';
-import 'package:flare/presentaion/auth/gender_and_age_page/logic/age_selection/ages_display_cubit.dart';
-import 'package:flare/presentaion/auth/gender_and_age_page/logic/age_selection_cubit.dart';
-import 'package:flare/presentaion/auth/gender_and_age_page/logic/gender_selection_cubit.dart';
-import 'package:flare/presentaion/auth/sign_in/logic/cubit/sing_in_cubit.dart';
-import 'package:flare/presentaion/auth/sign_in/page/enter_password_page.dart';
-import 'package:flare/presentaion/auth/sign_in/page/sign_in_page.dart';
-import 'package:flare/presentaion/auth/sign_up/logic/sign_up_cubit.dart';
-import 'package:flare/presentaion/auth/sign_up/pages/sign_up_page.dart';
-import 'package:flare/presentaion/cart/presentation/cart_page.dart';
-import 'package:flare/presentaion/home/pages/home_page.dart';
-import 'package:flare/presentaion/product_detail_page/logic/select_color_cubit.dart';
-import 'package:flare/presentaion/product_detail_page/logic/select_quantity_cubit.dart';
-import 'package:flare/presentaion/product_detail_page/logic/select_size_cubit.dart';
-import 'package:flare/presentaion/product_detail_page/presentation/product_detail_page.dart';
-import 'package:flare/presentaion/products_of_category/presentation/products_of_category_page.dart';
-import 'package:flare/presentaion/products_of_category/presentation/widgets/products_of_gateogry_model.dart';
-import 'package:flare/presentaion/search/presentation/search_page.dart';
-import 'package:flare/presentaion/splash/pages/splash_page.dart';
+import 'package:flare/presentation/delivery_address_page/logic/delivery_address_cubit.dart';
+import 'package:flare/presentation/delivery_address_page/presentation/delivery_address_page.dart';
+import 'package:flare/presentation/all_categories/presentation/all_categories_page.dart';
+import 'package:flare/presentation/auth/forget_password/pages/email_sent_page.dart';
+import 'package:flare/presentation/auth/forget_password/pages/forget_password_page.dart';
+import 'package:flare/presentation/auth/gender_and_age_page/gender_and_age_page.dart';
+import 'package:flare/presentation/auth/gender_and_age_page/logic/age_selection/ages_display_cubit.dart';
+import 'package:flare/presentation/auth/gender_and_age_page/logic/age_selection_cubit.dart';
+import 'package:flare/presentation/auth/gender_and_age_page/logic/gender_selection_cubit.dart';
+import 'package:flare/presentation/auth/sign_in/logic/cubit/sing_in_cubit.dart';
+import 'package:flare/presentation/auth/sign_in/page/enter_password_page.dart';
+import 'package:flare/presentation/auth/sign_in/page/sign_in_page.dart';
+import 'package:flare/presentation/auth/sign_up/logic/sign_up_cubit.dart';
+import 'package:flare/presentation/auth/sign_up/pages/sign_up_page.dart';
+import 'package:flare/presentation/cart/logic/cubit/get_ordered_products_cart_cubit.dart';
+import 'package:flare/presentation/cart/presentation/cart_page.dart';
+import 'package:flare/presentation/checkout_page/presentation/checkout_page.dart';
+import 'package:flare/presentation/home/pages/home_page.dart';
+import 'package:flare/presentation/order_placed_page/presentation/order_placed_page.dart';
+import 'package:flare/presentation/product_detail_page/logic/favorite_icon_cubit.dart';
+import 'package:flare/presentation/product_detail_page/logic/select_color_cubit.dart';
+import 'package:flare/presentation/product_detail_page/logic/select_quantity_cubit.dart';
+import 'package:flare/presentation/product_detail_page/logic/select_size_cubit.dart';
+import 'package:flare/presentation/product_detail_page/presentation/product_detail_page.dart';
+import 'package:flare/presentation/products_of_category/presentation/products_of_category_page.dart';
+import 'package:flare/presentation/products_of_category/presentation/widgets/products_of_gateogry_model.dart';
+import 'package:flare/presentation/search/presentation/search_page.dart';
+import 'package:flare/presentation/splash/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -49,9 +57,45 @@ class AppRouter {
         return CustomRouteAnimation(
           child: const EmailSentPage(),
         );
+      case Routes.deliveryAddressPage:
+        return CustomRouteAnimation(
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => AppBasicReactiveButtonCubit()),
+              BlocProvider(
+                  create: (_) =>
+                      AppServiceLocator.getIt<DeliveryAddressCubit>()),
+            ],
+            child: const DeliveryAddressPage(),
+          ),
+        );
+      case Routes.orderPlacedPage:
+        return CustomRouteAnimation(
+          child: const OrderPlacedPage(),
+        );
+      case Routes.checkoutPage:
+        final List<ProductOrderedEntity> orderedProducts =
+            settings.arguments as List<ProductOrderedEntity>;
+
+        return CustomRouteAnimation(
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) => AppServiceLocator.getIt<DeliveryAddressCubit>(),
+              ),
+              BlocProvider(
+                create: (context) => AppBasicReactiveButtonCubit(),
+              ),
+            ],
+            child: CheckoutPage(orderedProducts: orderedProducts),
+          ),
+        );
       case Routes.cartPage:
         return CustomRouteAnimation(
-          child: const CartPage(),
+          child: BlocProvider(
+            create: (_) => GetOrderedProductsCartCubit()..getOrderedProducts(),
+            child: const CartPage(),
+          ),
         );
       case Routes.searchPage:
         return CustomRouteAnimation(
@@ -66,6 +110,11 @@ class AppRouter {
               BlocProvider(create: (_) => SelectSizeCubit()),
               BlocProvider(create: (_) => SelectColorCubit()),
               BlocProvider(create: (_) => AppBasicReactiveButtonCubit()),
+              BlocProvider(
+                  create: (_) => FavoriteIconCubit()
+                    ..isFavorite(
+                      productId: productEntity.productId,
+                    )),
             ],
             child: ProductDetailPage(
               productEntity: productEntity,

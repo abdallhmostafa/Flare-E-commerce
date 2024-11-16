@@ -1,4 +1,4 @@
-import 'package:flare/domain/order/order_entity.dart';
+import 'package:flare/domain/order/entities/order_entity.dart';
 
 class OrderModelRequest {
   final String productId;

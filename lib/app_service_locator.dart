@@ -19,13 +19,22 @@ import 'package:flare/domain/auth/usecase/sign_in_use_case.dart';
 import 'package:flare/domain/auth/usecase/sign_up_use_case.dart';
 import 'package:flare/domain/category/category_repository/category_domain_repo.dart';
 import 'package:flare/domain/category/category_use_case/category_use_case.dart';
-import 'package:flare/domain/order/order_domain_repository.dart';
-import 'package:flare/domain/order/order_use_case.dart';
+import 'package:flare/domain/order/repository/order_domain_repository.dart';
+import 'package:flare/domain/order/use_case/delivery_address_use_case.dart';
+import 'package:flare/domain/order/use_case/get_cart_products_use_case.dart';
+import 'package:flare/domain/order/use_case/order_registration_use_case.dart';
+import 'package:flare/domain/order/use_case/order_use_case.dart';
+import 'package:flare/domain/order/use_case/remove_all_ordered_product_use_case.dart';
+import 'package:flare/domain/order/use_case/remove_cart_products_use_case.dart';
+import 'package:flare/domain/product/use_cases/get_favorite_products_use_case.dart';
 import 'package:flare/domain/product/use_cases/get_new_in_items_use_case.dart';
 import 'package:flare/domain/product/product_repository/product_domain_repository.dart';
 import 'package:flare/domain/product/use_cases/get_products_by_category_id.dart';
 import 'package:flare/domain/product/use_cases/get_products_by_title_use_case.dart';
 import 'package:flare/domain/product/use_cases/get_top_selling_items_use_case.dart';
+import 'package:flare/domain/product/use_cases/is_favorite_product_use_case.dart';
+import 'package:flare/domain/product/use_cases/remove_or_add_favorite_product_use_case.dart';
+import 'package:flare/presentation/delivery_address_page/logic/delivery_address_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 class AppServiceLocator {
@@ -35,6 +44,10 @@ class AppServiceLocator {
 
   static final getIt = GetIt.instance;
   static Future<void> initDependencies() async {
+    // ---------------------- Cubit ---------------------- //
+    getIt.registerLazySingleton<DeliveryAddressCubit>(
+        () => DeliveryAddressCubit());
+
     // ---------------------- Services classes ---------------------- //
     getIt.registerSingleton<AuthFirebaseService>(AuthFirebaseServiceImpl());
     getIt.registerSingleton<CategoryFirebaseService>(
@@ -72,5 +85,19 @@ class AppServiceLocator {
 
     // -------------- Order  -------------- //
     getIt.registerSingleton<AddOrderUseCase>(AddOrderUseCase());
+    getIt.registerSingleton<GetCartProductsUseCase>(GetCartProductsUseCase());
+    getIt.registerSingleton<RemoveAllOrderedProductUseCase>(
+        RemoveAllOrderedProductUseCase());
+    getIt.registerSingleton<RemoveCartProductsUseCase>(
+        RemoveCartProductsUseCase());
+    getIt.registerSingleton<DeliveryAddressUseCase>(DeliveryAddressUseCase());
+    getIt.registerSingleton<OrderRegistrationUseCase>(
+        OrderRegistrationUseCase());
+    getIt.registerSingleton<RemoveOrAddFavoriteProductUseCase>(
+        RemoveOrAddFavoriteProductUseCase());
+    getIt.registerSingleton<IsFavoriteProductUseCase>(
+        IsFavoriteProductUseCase());
+    getIt.registerSingleton<GetFavoriteProductsUseCase>(
+        GetFavoriteProductsUseCase());
   }
 }

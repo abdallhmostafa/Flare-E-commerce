@@ -22,7 +22,7 @@ class ProductDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar(),
+      appBar: _appBar(productEntity),
       body: _body(context),
     );
   }
@@ -69,12 +69,16 @@ class ProductDetailPage extends StatelessWidget {
     );
   }
 
-  PreferredSize _appBar() {
+  PreferredSize _appBar(ProductEntity productEntity) {
     return PreferredSize(
       preferredSize: const Size.fromHeight(kToolbarHeight + 10),
       child: BasicAppBar(
         actions: [
-          FavoriteIconButton(paddingSize: 10.w, iconSize: 24.w),
+          FavoriteIconButton(
+            paddingSize: 10.w,
+            iconSize: 24.w,
+            product: productEntity,
+          ),
         ],
       ),
     );

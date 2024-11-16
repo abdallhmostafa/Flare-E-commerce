@@ -30,11 +30,11 @@ class ShimmerHeaderSection extends StatelessWidget {
           child: Row(
             children: [
               const SizedBox(
-                width: 10,
+                width: 10
               ),
               Space.horizotalSpace(5),
               const SizedBox(
-                width: 5,
+                width: 5
               ),
             ],
           ),
@@ -42,7 +42,10 @@ class ShimmerHeaderSection extends StatelessWidget {
         Container(
           width: 40.w,
           height: 40.h,
-          color: AppColors.secondBackground,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: AppColors.secondBackground,
+          ),
         )
       ],
     );

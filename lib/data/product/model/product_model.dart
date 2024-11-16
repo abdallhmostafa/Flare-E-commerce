@@ -87,3 +87,21 @@ extension ProductModelX on ProductModel {
     );
   }
 }
+
+extension ProductEntityX on ProductEntity {
+  ProductModel fromEntity() {
+    return ProductModel(
+      categoryId: categoryId,
+      colors: colors.map((color) => color.fromEntity()).toList(),
+      createdDate: createdDate,
+      discountedPrice: discountedPrice,
+      gender: gender,
+      price: price,
+      productId: productId,
+      salesNumber: salesNumber,
+      title: title,
+      sizes: sizes,
+      images: images,
+    );
+  }
+}

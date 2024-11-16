@@ -25,7 +25,20 @@ class ProductOrderedModel {
     required this.id,
   });
 
- 
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'productId': productId,
+      'productTitle': productTitle,
+      'productQuantity': productQuantity,
+      'productColor': productColor,
+      'productSize': productSize,
+      'productPrice': productPrice,
+      'totalPrice': totalPrice,
+      'productImage': productImage,
+      'createdAt': createdAt,
+      'id': id,
+    };
+  }
 
   factory ProductOrderedModel.fromJson(Map<String, dynamic> map) {
     return ProductOrderedModel(
@@ -46,6 +59,23 @@ class ProductOrderedModel {
 extension ProductOrderedModelExtension on ProductOrderedModel {
   ProductOrderedEntity toEntity() {
     return ProductOrderedEntity(
+      productId: productId,
+      productTitle: productTitle,
+      productQuantity: productQuantity,
+      productColor: productColor,
+      productSize: productSize,
+      productPrice: productPrice,
+      totalPrice: totalPrice,
+      productImage: productImage,
+      createdAt: createdAt,
+      id: id,
+    );
+  }
+}
+
+extension ProductOrderedModelEntity on ProductOrderedEntity {
+  ProductOrderedModel fromEntity() {
+    return ProductOrderedModel(
       productId: productId,
       productTitle: productTitle,
       productQuantity: productQuantity,

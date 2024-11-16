@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flare/common/helpers/space.dart';
-import 'package:flare/common/widgets/favorite_icon_button/favorite_icon_button.dart';
 import 'package:flare/core/configs/assets/app_images_assets.dart';
 import 'package:flare/core/configs/theme/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -33,20 +32,11 @@ class ProductItem extends StatelessWidget {
         color: AppColors.secondBackground,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Stack(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _imagePart(),
-              _productNameAndPricePart(context),
-            ],
-          ),
-          Positioned(
-            top: 8.h,
-            right: 8.w,
-            child: const FavoriteIconButton(),
-          ),
+          _imagePart(),
+          _productNameAndPricePart(context),
         ],
       ),
     );

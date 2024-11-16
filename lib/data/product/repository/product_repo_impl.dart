@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flare/app_service_locator.dart';
 import 'package:flare/data/product/model/product_model.dart';
 import 'package:flare/data/product/source/product_firebase_service_repo.dart';
+import 'package:flare/domain/product/product_entity/product_entity.dart';
 import 'package:flare/domain/product/product_repository/product_domain_repository.dart';
 
 class ProductRepoImpl implements ProductDomainRepository {
@@ -74,6 +75,37 @@ class ProductRepoImpl implements ProductDomainRepository {
             )
             .toList(),
       ),
+    );
+  }
+
+  @override
+  Future<Either> removeOrAddFavoriteProduct(
+      {required ProductEntity product}) async {
+    final isFavoriteProductOrNot =
+        await AppServiceLocator.getIt<ProductFirebaseServiceRepo>()
+            .removeOrAddFavoriteProduct(product: product);
+
+    return isFavoriteProductOrNot.fold(
+      (failure) => left(failure),
+      (isFavoriteProductOrNot) => right(isFavoriteProductOrNot),
+    );
+  }
+
+  @override
+  Future<bool> isFavoriteProduct({required String productId}) async {
+    return await AppServiceLocator.getIt<ProductFirebaseServiceRepo>()
+        .isFavoriteProduct(productId: productId);
+  }
+
+  @override
+  Future<Either> getFavoriteProducts() async {
+    final response = await AppServiceLocator.getIt<ProductFirebaseServiceRepo>()
+        .getFavoriteProducts();
+
+    return response.fold(
+      (failure) => left(failure),
+      (favoriteProducts) =>
+          right(ProductModel.fromJson(favoriteProducts).toEntity()),
     );
   }
 }

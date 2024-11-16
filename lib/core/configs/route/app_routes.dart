@@ -1,3 +1,4 @@
+import 'package:flare/app_service_locator.dart';
 import 'package:flare/common/app_basic_reactive_button_cubit/app_basic_reactive_button_cubit.dart';
 import 'package:flare/core/configs/route/custom_route_animation.dart';
 import 'package:flare/core/configs/route/routes.dart';
@@ -5,6 +6,8 @@ import 'package:flare/data/auth/models/user_creation_request.dart';
 import 'package:flare/data/auth/models/user_sign_in_request.dart';
 import 'package:flare/domain/order/entities/product_ordered_entity.dart';
 import 'package:flare/domain/product/product_entity/product_entity.dart';
+import 'package:flare/presentation/delivery_address_page/logic/delivery_address_cubit.dart';
+import 'package:flare/presentation/delivery_address_page/presentation/delivery_address_page.dart';
 import 'package:flare/presentation/all_categories/presentation/all_categories_page.dart';
 import 'package:flare/presentation/auth/forget_password/pages/email_sent_page.dart';
 import 'package:flare/presentation/auth/forget_password/pages/forget_password_page.dart';
@@ -22,6 +25,7 @@ import 'package:flare/presentation/cart/presentation/cart_page.dart';
 import 'package:flare/presentation/checkout_page/presentation/checkout_page.dart';
 import 'package:flare/presentation/home/pages/home_page.dart';
 import 'package:flare/presentation/order_placed_page/presentation/order_placed_page.dart';
+import 'package:flare/presentation/product_detail_page/logic/favorite_icon_cubit.dart';
 import 'package:flare/presentation/product_detail_page/logic/select_color_cubit.dart';
 import 'package:flare/presentation/product_detail_page/logic/select_quantity_cubit.dart';
 import 'package:flare/presentation/product_detail_page/logic/select_size_cubit.dart';
@@ -53,6 +57,18 @@ class AppRouter {
         return CustomRouteAnimation(
           child: const EmailSentPage(),
         );
+      case Routes.deliveryAddressPage:
+        return CustomRouteAnimation(
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => AppBasicReactiveButtonCubit()),
+              BlocProvider(
+                  create: (_) =>
+                      AppServiceLocator.getIt<DeliveryAddressCubit>()),
+            ],
+            child: const DeliveryAddressPage(),
+          ),
+        );
       case Routes.orderPlacedPage:
         return CustomRouteAnimation(
           child: const OrderPlacedPage(),
@@ -62,7 +78,17 @@ class AppRouter {
             settings.arguments as List<ProductOrderedEntity>;
 
         return CustomRouteAnimation(
-          child: CheckoutPage(orderedProducts: orderedProducts),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) => AppServiceLocator.getIt<DeliveryAddressCubit>(),
+              ),
+              BlocProvider(
+                create: (context) => AppBasicReactiveButtonCubit(),
+              ),
+            ],
+            child: CheckoutPage(orderedProducts: orderedProducts),
+          ),
         );
       case Routes.cartPage:
         return CustomRouteAnimation(
@@ -84,6 +110,11 @@ class AppRouter {
               BlocProvider(create: (_) => SelectSizeCubit()),
               BlocProvider(create: (_) => SelectColorCubit()),
               BlocProvider(create: (_) => AppBasicReactiveButtonCubit()),
+              BlocProvider(
+                  create: (_) => FavoriteIconCubit()
+                    ..isFavorite(
+                      productId: productEntity.productId,
+                    )),
             ],
             child: ProductDetailPage(
               productEntity: productEntity,

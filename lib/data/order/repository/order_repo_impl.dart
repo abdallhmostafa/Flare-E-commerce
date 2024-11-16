@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flare/app_service_locator.dart';
+import 'package:flare/data/order/model/delivery_address_model.dart';
 import 'package:flare/data/order/model/order_model_request.dart';
+import 'package:flare/data/order/model/order_registration_req.dart';
 import 'package:flare/data/order/model/product_ordered_model.dart';
 import 'package:flare/data/order/source/order_firebase_service_repo.dart';
 import 'package:flare/domain/order/entities/product_ordered_entity.dart';
@@ -44,6 +46,26 @@ class OrderRepoImpl implements OrderDomainRepository {
   Future<Either> removeAllOrderedProduct({required List<ProductOrderedEntity> orderedProducts})async {
 final response = await AppServiceLocator.getIt<OrderFirebaseServiceRepo>()
         .removeAllOrderedProduct(orderedProducts: orderedProducts);
+    return response.fold(
+      (failure) => left(failure),
+      (successMessage) => right(successMessage),
+    );
+  }
+
+  @override
+  Future<Either> addDeliveryAddress({required DeliveryAddressModel deliveryAddressModel}) async{
+    final response = await AppServiceLocator.getIt<OrderFirebaseServiceRepo>()
+        .addDeliveryAddress(deliveryAddressModel: deliveryAddressModel);
+    return response.fold(
+      (failure) => left(failure),
+      (successMessage) => right(successMessage),
+    );
+  }
+
+  @override
+  Future<Either> orderRegistration({required OrderRegistrationReq orderedProducts}) async{
+        final response = await AppServiceLocator.getIt<OrderFirebaseServiceRepo>()
+        .orderRegistration(orderedProducts: orderedProducts);
     return response.fold(
       (failure) => left(failure),
       (successMessage) => right(successMessage),

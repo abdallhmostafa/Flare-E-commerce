@@ -3,7 +3,9 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flare/common/helpers/firebase_exception.dart';
 import 'package:flare/core/constants/app_firebase_constant.dart';
+import 'package:flare/data/order/model/delivery_address_model.dart';
 import 'package:flare/data/order/model/order_model_request.dart';
+import 'package:flare/data/order/model/order_registration_req.dart';
 import 'package:flare/data/order/source/order_firebase_service_repo.dart';
 import 'package:flare/domain/order/entities/product_ordered_entity.dart';
 
@@ -73,16 +75,62 @@ class OrderFirebaseServiceImpl implements OrderFirebaseServiceRepo {
       {required List<ProductOrderedEntity> orderedProducts}) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
+      for (final item in orderedProducts) {
+        await FirebaseFirestore.instance
+            .collection(AppFirebaseConstant.userCollection)
+            .doc(user!.uid)
+            .collection(AppFirebaseConstant.cartCollection)
+            .doc(item.id)
+            .delete();
+      }
+
+      return const Right("All Product Removed Successfully 😊");
+    } on FirebaseException catch (e) {
+      return Left(checkFirebaseException(e));
+    } catch (e) {
+      return Left(e);
+    }
+  }
+
+  @override
+  Future<Either> addDeliveryAddress(
+      {required DeliveryAddressModel deliveryAddressModel}) async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
       await FirebaseFirestore.instance
           .collection(AppFirebaseConstant.userCollection)
           .doc(user!.uid)
-          .collection(AppFirebaseConstant.cartCollection)
-          .doc(
-            orderedProducts.first.id,
-          )
-          .delete();
+          .collection(AppFirebaseConstant.deliveryAddressCollection)
+          .add(deliveryAddressModel.toJson());
+      return const Right('Deliver Address Added Successfully 😊');
+    } on FirebaseException catch (e) {
+      return Left(checkFirebaseException(e));
+    } catch (e) {
+      return Left(e);
+    }
+  }
 
-      return const Right("All Product Removed Successfully 😊");
+  @override
+  Future<Either> orderRegistration(
+      {required OrderRegistrationReq orderedProducts}) async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      await FirebaseFirestore.instance
+          .collection(AppFirebaseConstant.userCollection)
+          .doc(user!.uid)
+          .collection(AppFirebaseConstant.ordersCollection)
+          .add(orderedProducts.toMap());
+      for (final item in orderedProducts.orderedProducts) {
+        await FirebaseFirestore.instance
+            .collection(AppFirebaseConstant.userCollection)
+            .doc(user.uid)
+            .collection(AppFirebaseConstant.cartCollection)
+            .doc(item.id)
+            .delete();
+        
+      }
+
+      return const Right('Order Registered Successfully 😊');
     } on FirebaseException catch (e) {
       return Left(checkFirebaseException(e));
     } catch (e) {

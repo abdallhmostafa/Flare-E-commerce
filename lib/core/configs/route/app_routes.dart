@@ -5,6 +5,8 @@ import 'package:flare/core/configs/route/custom_route_animation.dart';
 import 'package:flare/core/configs/route/routes.dart';
 import 'package:flare/data/auth/models/user_creation_request.dart';
 import 'package:flare/data/auth/models/user_sign_in_request.dart';
+import 'package:flare/data/order/model/product_ordered_model.dart';
+import 'package:flare/domain/order/entities/ordered_products_entity.dart';
 import 'package:flare/domain/order/entities/product_ordered_entity.dart';
 import 'package:flare/domain/product/product_entity/product_entity.dart';
 import 'package:flare/domain/product/use_cases/get_favorite_products_use_case.dart';
@@ -28,6 +30,9 @@ import 'package:flare/presentation/checkout_page/presentation/checkout_page.dart
 import 'package:flare/presentation/favorites_page/presentation/favorites_page.dart';
 import 'package:flare/presentation/home/pages/home_page.dart';
 import 'package:flare/presentation/order_placed_page/presentation/order_placed_page.dart';
+import 'package:flare/presentation/ordered_details_page/presentation/ordered_details_page.dart';
+import 'package:flare/presentation/ordered_items_page/presentation/ordered_items_page.dart';
+import 'package:flare/presentation/orders_page/logic/cubit/get_ordered_products_cubit.dart';
 import 'package:flare/presentation/orders_page/presentation/orders_page.dart';
 import 'package:flare/presentation/product_detail_page/logic/favorite_icon_cubit.dart';
 import 'package:flare/presentation/product_detail_page/logic/select_color_cubit.dart';
@@ -49,6 +54,18 @@ class AppRouter {
       case Routes.splash:
         return CustomRouteAnimation(
           child: const SplashPage(),
+        );
+      case Routes.orderedItemsPage:
+  final List<ProductOrderedModel> orderedProducts;
+  orderedProducts = settings.arguments as List<ProductOrderedModel>;
+        return CustomRouteAnimation(
+          child:  OrderedItemsPage( orderedProducts: orderedProducts),
+        );
+      case Routes.orderedDetailsPage:
+        final OrderedProductsEntity orderedProducts = settings.arguments
+            as OrderedProductsEntity;
+        return CustomRouteAnimation(
+          child:  OrderedDetailsPage(orderedProducts: orderedProducts),
         );
       case Routes.homePage:
         return CustomRouteAnimation(
@@ -93,7 +110,10 @@ class AppRouter {
         );
       case Routes.ordersPage:
         return CustomRouteAnimation(
-          child: const OrdersPage(),
+          child: BlocProvider(
+            create: (_) => GetOrderedProductsCubit()..getOrderedProducts(),
+            child: const OrdersPage(),
+          ),
         );
       case Routes.checkoutPage:
         final List<ProductOrderedEntity> orderedProducts =

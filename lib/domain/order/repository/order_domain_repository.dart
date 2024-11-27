@@ -14,5 +14,5 @@ abstract class OrderDomainRepository {
   Future<Either<Left, List<ProductOrderedEntity>>> getCartProducts();
   Future<Either> orderRegistration(
       {required OrderRegistrationReq orderedProducts});
-
+  Future<Either> getOrderedProducts();
 }

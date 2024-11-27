@@ -22,6 +22,7 @@ import 'package:flare/domain/category/category_use_case/category_use_case.dart';
 import 'package:flare/domain/order/repository/order_domain_repository.dart';
 import 'package:flare/domain/order/use_case/delivery_address_use_case.dart';
 import 'package:flare/domain/order/use_case/get_cart_products_use_case.dart';
+import 'package:flare/domain/order/use_case/get_ordered_products_use_case.dart';
 import 'package:flare/domain/order/use_case/order_registration_use_case.dart';
 import 'package:flare/domain/order/use_case/order_use_case.dart';
 import 'package:flare/domain/order/use_case/remove_all_ordered_product_use_case.dart';
@@ -99,5 +100,7 @@ class AppServiceLocator {
         IsFavoriteProductUseCase());
     getIt.registerSingleton<GetFavoriteProductsUseCase>(
         GetFavoriteProductsUseCase());
+    getIt.registerSingleton<GetOrderedProductsUseCase>(
+        GetOrderedProductsUseCase());
   }
 }

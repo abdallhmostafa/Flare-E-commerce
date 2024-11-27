@@ -127,10 +127,27 @@ class OrderFirebaseServiceImpl implements OrderFirebaseServiceRepo {
             .collection(AppFirebaseConstant.cartCollection)
             .doc(item.id)
             .delete();
-        
       }
 
       return const Right('Order Registered Successfully 😊');
+    } on FirebaseException catch (e) {
+      return Left(checkFirebaseException(e));
+    } catch (e) {
+      return Left(e);
+    }
+  }
+
+  @override
+   Future<Either<dynamic, List<Map<String, dynamic>>>> getOrderedProducts() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      final ordereProducts = await FirebaseFirestore.instance
+          .collection(AppFirebaseConstant.userCollection)
+          .doc(user!.uid)
+          .collection(AppFirebaseConstant.ordersCollection)
+          .get();
+
+      return Right(ordereProducts.docs.map((e) => e.data()).toList());
     } on FirebaseException catch (e) {
       return Left(checkFirebaseException(e));
     } catch (e) {

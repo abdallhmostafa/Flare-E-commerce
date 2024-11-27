@@ -17,12 +17,14 @@ class CartItme extends StatelessWidget {
       required this.color,
       required this.price,
       required this.image,
-      required this.id});
+      required this.id,
+      this.isThereRemoveButton = true});
   final String title;
   final String size;
   final String color;
   final String price;
   final String image;
+  final bool isThereRemoveButton;
   final String id;
   @override
   Widget build(BuildContext context) {
@@ -157,14 +159,20 @@ class CartItme extends StatelessWidget {
               .bodyMedium!
               .copyWith(fontWeight: FontWeight.w700),
         ),
-        Space.verticalSpace(8),
-        AddOrRemoveItemCartQuantityButton(
-            isAddButton: false,
-            onTap: () {
-              context
-                  .read<GetOrderedProductsCartCubit>()
-                  .removeOrderedProduct(id: id);
-            }),
+        isThereRemoveButton
+            ? Column(
+                children: [
+                  Space.verticalSpace(8),
+                  AddOrRemoveItemCartQuantityButton(
+                      isAddButton: false,
+                      onTap: () {
+                        context
+                            .read<GetOrderedProductsCartCubit>()
+                            .removeOrderedProduct(id: id);
+                      }),
+                ],
+              )
+            : const SizedBox.shrink(),
       ],
     );
   }

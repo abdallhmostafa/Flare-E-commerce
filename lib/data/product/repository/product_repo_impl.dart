@@ -105,7 +105,7 @@ class ProductRepoImpl implements ProductDomainRepository {
     return response.fold(
       (failure) => left(failure),
       (favoriteProducts) =>
-          right(ProductModel.fromJson(favoriteProducts).toEntity()),
+          right(favoriteProducts.map((favoriteProduct) => ProductModel.fromJson(favoriteProduct).toEntity(),).toList()),
     );
   }
 }

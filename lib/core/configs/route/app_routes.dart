@@ -1,11 +1,15 @@
 import 'package:flare/app_service_locator.dart';
 import 'package:flare/common/app_basic_reactive_button_cubit/app_basic_reactive_button_cubit.dart';
+import 'package:flare/common/get_product_cubit/get_product_cubit.dart';
 import 'package:flare/core/configs/route/custom_route_animation.dart';
 import 'package:flare/core/configs/route/routes.dart';
 import 'package:flare/data/auth/models/user_creation_request.dart';
 import 'package:flare/data/auth/models/user_sign_in_request.dart';
+import 'package:flare/data/order/model/product_ordered_model.dart';
+import 'package:flare/domain/order/entities/ordered_products_entity.dart';
 import 'package:flare/domain/order/entities/product_ordered_entity.dart';
 import 'package:flare/domain/product/product_entity/product_entity.dart';
+import 'package:flare/domain/product/use_cases/get_favorite_products_use_case.dart';
 import 'package:flare/presentation/delivery_address_page/logic/delivery_address_cubit.dart';
 import 'package:flare/presentation/delivery_address_page/presentation/delivery_address_page.dart';
 import 'package:flare/presentation/all_categories/presentation/all_categories_page.dart';
@@ -23,8 +27,13 @@ import 'package:flare/presentation/auth/sign_up/pages/sign_up_page.dart';
 import 'package:flare/presentation/cart/logic/cubit/get_ordered_products_cart_cubit.dart';
 import 'package:flare/presentation/cart/presentation/cart_page.dart';
 import 'package:flare/presentation/checkout_page/presentation/checkout_page.dart';
+import 'package:flare/presentation/favorites_page/presentation/favorites_page.dart';
 import 'package:flare/presentation/home/pages/home_page.dart';
 import 'package:flare/presentation/order_placed_page/presentation/order_placed_page.dart';
+import 'package:flare/presentation/ordered_details_page/presentation/ordered_details_page.dart';
+import 'package:flare/presentation/ordered_items_page/presentation/ordered_items_page.dart';
+import 'package:flare/presentation/orders_page/logic/cubit/get_ordered_products_cubit.dart';
+import 'package:flare/presentation/orders_page/presentation/orders_page.dart';
 import 'package:flare/presentation/product_detail_page/logic/favorite_icon_cubit.dart';
 import 'package:flare/presentation/product_detail_page/logic/select_color_cubit.dart';
 import 'package:flare/presentation/product_detail_page/logic/select_quantity_cubit.dart';
@@ -33,6 +42,7 @@ import 'package:flare/presentation/product_detail_page/presentation/product_deta
 import 'package:flare/presentation/products_of_category/presentation/products_of_category_page.dart';
 import 'package:flare/presentation/products_of_category/presentation/widgets/products_of_gateogry_model.dart';
 import 'package:flare/presentation/search/presentation/search_page.dart';
+import 'package:flare/presentation/setting_page/presentation/setting_page.dart';
 import 'package:flare/presentation/splash/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,6 +54,18 @@ class AppRouter {
       case Routes.splash:
         return CustomRouteAnimation(
           child: const SplashPage(),
+        );
+      case Routes.orderedItemsPage:
+  final List<ProductOrderedModel> orderedProducts;
+  orderedProducts = settings.arguments as List<ProductOrderedModel>;
+        return CustomRouteAnimation(
+          child:  OrderedItemsPage( orderedProducts: orderedProducts),
+        );
+      case Routes.orderedDetailsPage:
+        final OrderedProductsEntity orderedProducts = settings.arguments
+            as OrderedProductsEntity;
+        return CustomRouteAnimation(
+          child:  OrderedDetailsPage(orderedProducts: orderedProducts),
         );
       case Routes.homePage:
         return CustomRouteAnimation(
@@ -72,6 +94,26 @@ class AppRouter {
       case Routes.orderPlacedPage:
         return CustomRouteAnimation(
           child: const OrderPlacedPage(),
+        );
+      case Routes.settingPage:
+        return CustomRouteAnimation(
+          child: const SettingPage(),
+        );
+      case Routes.favoritesPage:
+        return CustomRouteAnimation(
+          child: BlocProvider(
+            create: (_) => GetProductCubit(
+              useCase: AppServiceLocator.getIt<GetFavoriteProductsUseCase>(),
+            )..getProducts(),
+            child: const FavoritesPage(),
+          ),
+        );
+      case Routes.ordersPage:
+        return CustomRouteAnimation(
+          child: BlocProvider(
+            create: (_) => GetOrderedProductsCubit()..getOrderedProducts(),
+            child: const OrdersPage(),
+          ),
         );
       case Routes.checkoutPage:
         final List<ProductOrderedEntity> orderedProducts =

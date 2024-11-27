@@ -27,13 +27,12 @@ class HomePage extends StatelessWidget {
               SliverList(
                 delegate: SliverChildListDelegate(
                   [
+                    Space.verticalSpace(8),
                     const HeaderSection(),
                     Space.verticalSpace(24),
                     GestureDetector(
                         onTap: () => context.pushNamed(Routes.searchPage),
-                        child: const SearchFieldSection(
-                          enabled: false
-                        )),
+                        child: const SearchFieldSection(enabled: false)),
                     Space.verticalSpace(24),
                     const CategorySection(),
                     const TopSellingSection(),

@@ -1,7 +1,7 @@
 import 'package:flare/core/configs/route/routes.dart';
 import 'package:flare/core/extentions/navigator_extention.dart';
 import 'package:flare/core/usecase/usecase.dart';
-import 'package:flare/presentation/home/logic/product_cubit/get_product_cubit.dart';
+import 'package:flare/common/get_product_cubit/get_product_cubit.dart';
 import 'package:flare/presentation/home/widgets/product_shimmer.dart';
 import 'package:flare/presentation/home/widgets/top_selling_section/product_item.dart';
 import 'package:flutter/material.dart';

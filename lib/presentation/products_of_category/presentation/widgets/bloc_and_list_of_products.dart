@@ -1,6 +1,6 @@
 import 'package:flare/app_service_locator.dart';
 import 'package:flare/domain/product/use_cases/get_products_by_category_id.dart';
-import 'package:flare/presentation/home/logic/product_cubit/get_product_cubit.dart';
+import 'package:flare/common/get_product_cubit/get_product_cubit.dart';
 import 'package:flare/presentation/home/widgets/product_shimmer.dart';
 import 'package:flare/presentation/home/widgets/top_selling_section/product_item.dart';
 import 'package:flutter/material.dart';

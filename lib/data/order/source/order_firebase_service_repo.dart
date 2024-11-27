@@ -14,5 +14,8 @@ abstract class OrderFirebaseServiceRepo {
       {required List<ProductOrderedEntity> orderedProducts});
   Future<Either> orderRegistration(
       {required OrderRegistrationReq orderedProducts});
+  Future<Either<dynamic, List<Map<String, dynamic>>>> getOrderedProducts();
+
+      
 
 }

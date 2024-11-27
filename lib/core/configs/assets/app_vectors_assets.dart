@@ -1,9 +1,7 @@
 const _basePath = 'assets/vectors/';
 
-class AppVectorsAssets {
-  AppVectorsAssets._();
-  static final instance = AppVectorsAssets._();
-  factory AppVectorsAssets() => instance;
+abstract class AppVectorsAssets {
+
   static const format = '.svg';
   static const appLogo = '${_basePath}logo$format';
   static const emailSending = '${_basePath}email_sending$format';
@@ -12,4 +10,5 @@ class AppVectorsAssets {
   static const notFound = '${_basePath}not_found$format';
   static const cartBag = '${_basePath}cart_bag$format';
   static const discountShape = '${_basePath}discountshape$format';
+  static const receipt = '${_basePath}receipt$format';
 }

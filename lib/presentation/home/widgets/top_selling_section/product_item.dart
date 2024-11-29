@@ -98,6 +98,9 @@ class ProductItem extends StatelessWidget {
               errorWidget: (context, url, error) =>
                   const Icon(Icons.error_outline_rounded),
               fadeInDuration: const Duration(milliseconds: 250),
+              maxHeightDiskCache: 400,
+              maxWidthDiskCache: 400,
+              memCacheWidth: 400,
               imageBuilder: (context, imageProvider) => Container(
                 decoration: BoxDecoration(
                   color: Colors.white,

@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flare/common/helpers/firebase_exception.dart';
 import 'package:flare/core/constants/app_firebase_constant.dart';
+import 'package:flare/core/extentions/firebase_cache_extention.dart';
 import 'package:flare/data/product/model/product_model.dart';
 import 'package:flare/data/product/source/product_firebase_service_repo.dart';
 import 'package:flare/domain/product/product_entity/product_entity.dart';
@@ -18,7 +19,7 @@ class ProductFirebaseServiceImpl implements ProductFirebaseServiceRepo {
             'salesNumber',
             isGreaterThanOrEqualTo: 20,
           )
-          .get();
+          .getCacheFirst();
       return right(response.docs.map((e) => e.data()).toList());
     } on FirebaseException catch (e) {
       return left(checkFirebaseException(e));
@@ -38,7 +39,7 @@ class ProductFirebaseServiceImpl implements ProductFirebaseServiceRepo {
               DateTime(2024, 9, 10),
             ),
           )
-          .get();
+          .getCacheFirst();
       return right(response.docs.map((e) => e.data()).toList());
     } on FirebaseException catch (e) {
       return left(checkFirebaseException(e));
@@ -57,7 +58,7 @@ class ProductFirebaseServiceImpl implements ProductFirebaseServiceRepo {
             'categoryId',
             isEqualTo: categoryId,
           )
-          .get();
+          .getCacheFirst();
       return right(response.docs.map((e) => e.data()).toList());
     } on FirebaseException catch (e) {
       return left(checkFirebaseException(e));
@@ -76,7 +77,7 @@ class ProductFirebaseServiceImpl implements ProductFirebaseServiceRepo {
             'title',
             isGreaterThanOrEqualTo: productTitle,
           )
-          .get();
+          .getCacheFirst();
       return right(response.docs.map((e) => e.data()).toList());
     } on FirebaseException catch (e) {
       return left(checkFirebaseException(e));

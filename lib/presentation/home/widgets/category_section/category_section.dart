@@ -1,10 +1,12 @@
 import 'package:flare/common/helpers/space.dart';
 import 'package:flare/core/configs/route/routes.dart';
+import 'package:flare/core/constants/app_constant.dart';
 import 'package:flare/core/extentions/navigator_extention.dart';
 import 'package:flare/presentation/home/logic/get_gategories_info_cubit/get_gategories_info_cubit.dart';
 import 'package:flare/presentation/home/widgets/category_section/category_item.dart';
 import 'package:flare/presentation/home/widgets/category_section/shimmer_categorty_section.dart';
 import 'package:flare/presentation/home/widgets/section_name_and_see_all.dart';
+import 'package:flare/presentation/products_of_category/presentation/widgets/products_of_gateogry_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,46 +16,43 @@ class CategorySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => GetGategoriesCubit()..getCategories(),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SectionNameAndSeeAll(
-            sectionName: 'Categories',
-            onTap: () {
-              context.pushNamed(Routes.allCategoriesPage);
-            },
-          ),
-          Space.verticalSpace(14),
-          SizedBox(
-            height: 100.h,
-            child: Builder(builder: (context) {
-              return ListView.builder(
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.zero,
-                physics: const AlwaysScrollableScrollPhysics(),
-                itemCount: context.read<GetGategoriesCubit>().getlength(),
-                itemBuilder: (context, index) {
-                  return BlocBuilder<GetGategoriesCubit, GetGategoriesState>(
-                    builder: (context, state) {
-                      if (state is GetGategoriesLoadingState) {
-                        return const ShimmerCategortySection();
-                      }
-                      if (state is GetGategoriesSuccessState) {
-                        return _successState(state, index);
-                      } else {
-                        state as GetGategoriesFailureState;
-                        return _failureState(state, context);
-                      }
-                    },
-                  );
-                },
-              );
-            }),
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SectionNameAndSeeAll(
+          sectionName: 'Categories',
+          onTap: () {
+            context.pushNamed(Routes.allCategoriesPage);
+          },
+        ),
+        Space.verticalSpace(14),
+        SizedBox(
+          height: 100.h,
+          child: Builder(builder: (context) {
+            return ListView.builder(
+              scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.zero,
+              physics: const AlwaysScrollableScrollPhysics(),
+              itemCount: context.read<GetGategoriesCubit>().getlength(),
+              itemBuilder: (context, index) {
+                return BlocBuilder<GetGategoriesCubit, GetGategoriesState>(
+                  builder: (context, state) {
+                    if (state is GetGategoriesLoadingState) {
+                      return const ShimmerCategortySection();
+                    }
+                    if (state is GetGategoriesSuccessState) {
+                      return _successState(state, index, context);
+                    } else {
+                      state as GetGategoriesFailureState;
+                      return _failureState(state, context);
+                    }
+                  },
+                );
+              },
+            );
+          }),
+        ),
+      ],
     );
   }
 
@@ -66,10 +65,30 @@ class CategorySection extends StatelessWidget {
     );
   }
 
-  CategoryItem _successState(GetGategoriesSuccessState state, int index) {
-    return CategoryItem(
-      title: state.categories[index].title,
-      networkImage: state.categories[index].image,
+  Padding _successState(
+      GetGategoriesSuccessState state, int index, BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        left: index == 0 ? AppConstant.horizontalScreenPadding.w : 0,
+        right: index == state.categories.length
+            ? AppConstant.horizontalScreenPadding.w
+            : 0,
+      ),
+      child: GestureDetector(
+        onTap: () {
+          context.pushNamed(
+            Routes.productsOfCategoryPage,
+            argument: ProductsOfGateogryModel(
+              categoryId: state.categories[index].categoryId,
+              categoryTitle: state.categories[index].title ?? '',
+            ),
+          );
+        },
+        child: CategoryItem(
+          title: state.categories[index].title,
+          networkImage: state.categories[index].image,
+        ),
+      ),
     );
   }
 }

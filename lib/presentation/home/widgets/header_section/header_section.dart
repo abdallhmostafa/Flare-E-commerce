@@ -2,6 +2,7 @@ import 'package:flare/common/helpers/space.dart';
 import 'package:flare/core/configs/assets/app_images_assets.dart';
 import 'package:flare/core/configs/route/routes.dart';
 import 'package:flare/core/configs/theme/app_colors.dart';
+import 'package:flare/core/constants/app_constant.dart';
 import 'package:flare/core/extentions/navigator_extention.dart';
 import 'package:flare/presentation/home/logic/get_user_info_cubit/get_user_info_cubit.dart';
 import 'package:flare/presentation/home/widgets/header_section/shimmer_header_section.dart';
@@ -16,8 +17,10 @@ class HeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => GetUserInfoCubit()..getUserInfo(),
+    return Padding(
+       padding: EdgeInsets.symmetric(
+        horizontal: AppConstant.horizontalScreenPadding.w,
+      ),
       child: BlocBuilder<GetUserInfoCubit, GetUserInfoState>(
         builder: (context, state) {
           if (state is GetUserInfoLoadingState) {

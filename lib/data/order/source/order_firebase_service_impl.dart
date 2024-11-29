@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flare/common/helpers/firebase_exception.dart';
 import 'package:flare/core/constants/app_firebase_constant.dart';
+import 'package:flare/core/extentions/firebase_cache_extention.dart';
 import 'package:flare/data/order/model/delivery_address_model.dart';
 import 'package:flare/data/order/model/order_model_request.dart';
 import 'package:flare/data/order/model/order_registration_req.dart';
@@ -37,7 +38,7 @@ class OrderFirebaseServiceImpl implements OrderFirebaseServiceRepo {
           .collection(AppFirebaseConstant.userCollection)
           .doc(user!.uid)
           .collection(AppFirebaseConstant.cartCollection)
-          .get();
+          .getCacheFirst();
       final List<Map<String, dynamic>> cartProducts = [];
       for (final doc in data.docs) {
         cartProducts.add(doc.data()..addAll({'id': doc.id}));
@@ -145,7 +146,7 @@ class OrderFirebaseServiceImpl implements OrderFirebaseServiceRepo {
           .collection(AppFirebaseConstant.userCollection)
           .doc(user!.uid)
           .collection(AppFirebaseConstant.ordersCollection)
-          .get();
+          .getCacheFirst();
 
       return Right(ordereProducts.docs.map((e) => e.data()).toList());
     } on FirebaseException catch (e) {

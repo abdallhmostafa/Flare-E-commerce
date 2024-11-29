@@ -1,6 +1,6 @@
 import 'package:flare/core/configs/route/routes.dart';
+import 'package:flare/core/constants/app_constant.dart';
 import 'package:flare/core/extentions/navigator_extention.dart';
-import 'package:flare/core/usecase/usecase.dart';
 import 'package:flare/common/get_product_cubit/get_product_cubit.dart';
 import 'package:flare/presentation/home/widgets/product_shimmer.dart';
 import 'package:flare/presentation/home/widgets/top_selling_section/product_item.dart';
@@ -9,26 +9,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BlocAndProductItem extends StatelessWidget {
-  const BlocAndProductItem({super.key, required this.useCase});
-  final UseCase useCase;
+  const BlocAndProductItem({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => GetProductCubit(useCase: useCase)..getProducts(),
-      child: SizedBox(
-        height: 300.h,
-        child: BlocBuilder<GetProductCubit, GetProductState>(
-          builder: (context, state) {
-            if (state is GetProductLoadingState) {
-              return _loadingState();
-            } else if (state is GetProductSuccessState) {
-              return _successState(state);
-            } else {
-              state as GetProductFailureState;
-              return _failureState(state);
-            }
-          },
-        ),
+    return SizedBox(
+      height: 300.h,
+      child: BlocBuilder<GetProductCubit, GetProductState>(
+        builder: (context, state) {
+          if (state is GetProductLoadingState) {
+            return _loadingState();
+          } else if (state is GetProductSuccessState) {
+            return _successState(state);
+          } else {
+            state as GetProductFailureState;
+            return _failureState(state);
+          }
+        },
       ),
     );
   }
@@ -51,11 +48,19 @@ ListView _successState(GetProductSuccessState state) {
       return GestureDetector(
         onTap: () =>
             context.pushNamed(Routes.productDetailPage, argument: product),
-        child: ProductItem(
-          networkImage: product.images[2],
-          productName: product.title,
-          deccoutPrice: product.discountedPrice.toString(),
-          price: product.price.toString(),
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: index == 0 ? AppConstant.horizontalScreenPadding.w : 0,
+            right: index == state.products.length
+                ? AppConstant.horizontalScreenPadding.w
+                : 0,
+          ),
+          child: ProductItem(
+            networkImage: product.images[2],
+            productName: product.title,
+            deccoutPrice: product.discountedPrice.toString(),
+            price: product.price.toString(),
+          ),
         ),
       );
     },

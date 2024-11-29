@@ -1,4 +1,5 @@
 import 'package:flare/core/configs/theme/app_colors.dart';
+import 'package:flare/core/constants/app_constant.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,25 +12,29 @@ class SearchFieldSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      enabled: enabled,
-      textInputAction: TextInputAction.search,
-      dragStartBehavior: DragStartBehavior.down,
-      style: Theme.of(context).textTheme.labelMedium,
-      onChanged: onChanged ,
-      onSubmitted: onChanged,
-      decoration: InputDecoration(
-        hintText: 'Search',
-        contentPadding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-        prefixIcon: Icon(
-          FontAwesomeIcons.magnifyingGlass,
-          size: 20.w,
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: AppConstant.horizontalScreenPadding.w,
+      ),      child: TextField(
+        enabled: enabled,
+        textInputAction: TextInputAction.search,
+        dragStartBehavior: DragStartBehavior.down,
+        style: Theme.of(context).textTheme.labelMedium,
+        onChanged: onChanged ,
+        onSubmitted: onChanged,
+        decoration: InputDecoration(
+          hintText: 'Search',
+          contentPadding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+          prefixIcon: Icon(
+            FontAwesomeIcons.magnifyingGlass,
+            size: 20.w,
+          ),
+          border: _outlineInputBorder(),
+          filled: true,
+          enabledBorder: _outlineInputBorder(),
+          focusedBorder: _outlineInputBorder(AppColors.primary),
+          errorBorder: _outlineInputBorder(),
         ),
-        border: _outlineInputBorder(),
-        filled: true,
-        enabledBorder: _outlineInputBorder(),
-        focusedBorder: _outlineInputBorder(AppColors.primary),
-        errorBorder: _outlineInputBorder(),
       ),
     );
   }

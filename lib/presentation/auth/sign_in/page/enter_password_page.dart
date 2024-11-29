@@ -1,3 +1,4 @@
+import 'package:flare/app_service_locator.dart';
 import 'package:flare/common/app_basic_reactive_button_cubit/app_basic_reactive_button_cubit.dart';
 import 'package:flare/common/app_basic_reactive_button_cubit/app_reactive_submit_bloc_listner.dart';
 import 'package:flare/common/widgets/button/app_basic_reactive_button.dart';
@@ -48,7 +49,7 @@ class EnterPasswordPage extends StatelessWidget {
                         if (context.read<SingInCubit>().checkPassword(
                             userSignInRequest: userSignInRequest)) {
                           context.read<AppBasicReactiveButtonCubit>().submit(
-                                useCase: SignInUseCase(),
+                                useCase:AppServiceLocator.getIt<SignInUseCase>(),
                                 params: userSignInRequest,
                               );
                         }

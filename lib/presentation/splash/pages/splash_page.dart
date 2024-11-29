@@ -1,8 +1,7 @@
-import 'package:flare/core/configs/assets/app_vectors_assets.dart';
 import 'package:flare/core/configs/theme/app_colors.dart';
 import 'package:flare/presentation/splash/pages/splash_bloc_listener.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -16,7 +15,24 @@ class SplashPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            SvgPicture.asset(AppVectorsAssets.appLogo),
+            const FittedBox(
+                    child: Text("Flare",
+                        style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 150,
+                            fontWeight: FontWeight.w900)))
+                .animate(
+                  autoPlay: true,
+                )
+                .shimmer(
+                    duration: const Duration(milliseconds:1900),
+                    curve: Curves.easeInOut,
+                    colors: [
+                      AppColors.white,
+                      AppColors.primary,
+                      AppColors.white,
+                    ],
+                    angle: 360),
             const SplashBlocListener(),
           ],
         ),

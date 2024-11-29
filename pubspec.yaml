@@ -27,11 +27,11 @@ dependencies:
   # get_storage: ^2.1.1
   flutter_svg: ^2.0.10+1
   flutter_bloc: ^8.1.6
-  firebase_auth: ^4.16.0
-  cloud_firestore: ^4.14.0
+  firebase_auth: ^5.3.3
+  cloud_firestore: ^5.5.0
   get_it: ^7.7.0
   dartz: ^0.10.1
-  firebase_core: ^2.24.2
+  firebase_core: ^3.8.0
   flutter_screenutil: ^5.9.3
   lottie: ^3.1.2
   font_awesome_flutter: ^10.7.0
@@ -39,13 +39,16 @@ dependencies:
   cached_network_image: ^3.4.1
   easy_stepper: ^0.8.5+1
   persistent_bottom_nav_bar: ^6.2.1
-
+  flutter_animate: ^4.5.2
+  flutter_native_splash: ^2.4.3
 # ------------------------------ ./ Package Dependencies ---------------------------- #
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^3.0.0
+  flutter_launcher_icons: "^0.14.1"
+  
 
 flutter:
   uses-material-design: true

@@ -1,3 +1,4 @@
+import 'package:flare/app_service_locator.dart';
 import 'package:flare/common/app_basic_reactive_button_cubit/app_basic_reactive_button_cubit.dart';
 import 'package:flare/common/widgets/button/app_basic_reactive_button.dart';
 import 'package:flare/core/configs/route/routes.dart';
@@ -42,12 +43,12 @@ class ButtomSection extends StatelessWidget {
 
                       ageCubit.selectAge;
                       context.read<AppBasicReactiveButtonCubit>().submit(
-                            useCase: SignUpUseCase(),
+                            useCase:   AppServiceLocator.getIt<SignUpUseCase>(),
                             params: userCreationRequest,
                           );
                     }
                   },
-                  text: "Finish"),
+                  text: "Sign Up"),
             ),
           ),
           AppReactiveSubmitBlocListner(
@@ -55,7 +56,7 @@ class ButtomSection extends StatelessWidget {
             forSuccessState: () {
               context.pushNamedAndRemoveUntil(
                 Routes.signInPage,
-                predicate: (route) => false,
+                predicate: (_) => false,
               );
             },
           ),

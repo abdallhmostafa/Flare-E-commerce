@@ -27,7 +27,7 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
         'age': user.age,
         'uid': userCredential.user!.uid,
       });
-      return const Right("Signup done Successfully 😊");
+      return const Right("Sign up Successfully 😊");
     } on FirebaseAuthException catch (error) {
       return Left(_checkFirebaseAuthException(error));
     }

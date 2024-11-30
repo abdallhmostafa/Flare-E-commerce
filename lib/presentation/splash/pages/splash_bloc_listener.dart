@@ -14,7 +14,7 @@ class SplashBlocListener extends StatelessWidget {
         if (state is UnAuthenticatedState) {
           context.pushReplacementNamed(Routes.signInPage);
         } else if (state is AuthenticatedState) {
-          context.pushReplacementNamed(Routes.homePage);
+          context.pushReplacementNamed(Routes.navBarPage);
         }
       },
       child: const SizedBox.shrink(),

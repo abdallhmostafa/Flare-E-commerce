@@ -22,4 +22,7 @@ abstract class Routes {
   static const String favoritesPage = '/favorites_page';
   static const String orderedDetailsPage = '/ordered_details_page';
   static const String orderedItemsPage = '/ordered_items_page';
+  static const String notificationPage = '/notification_page';
+  static const String profilePage = '/profile_page';
+  static const String navBarPage = '/nav_bar_page';
 }

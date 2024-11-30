@@ -33,6 +33,8 @@ import 'package:flare/presentation/favorites_page/presentation/favorites_page.da
 import 'package:flare/presentation/home/logic/get_gategories_info_cubit/get_gategories_info_cubit.dart';
 import 'package:flare/presentation/home/logic/get_user_info_cubit/get_user_info_cubit.dart';
 import 'package:flare/presentation/home/pages/home_page.dart';
+import 'package:flare/presentation/nav_bar_page/presentation/nav_bar_page.dart';
+import 'package:flare/presentation/notification_page/presentation/notification_page.dart';
 import 'package:flare/presentation/order_placed_page/presentation/order_placed_page.dart';
 import 'package:flare/presentation/ordered_details_page/presentation/ordered_details_page.dart';
 import 'package:flare/presentation/ordered_items_page/presentation/ordered_items_page.dart';
@@ -45,6 +47,7 @@ import 'package:flare/presentation/product_detail_page/logic/select_size_cubit.d
 import 'package:flare/presentation/product_detail_page/presentation/product_detail_page.dart';
 import 'package:flare/presentation/products_of_category/presentation/products_of_category_page.dart';
 import 'package:flare/presentation/products_of_category/presentation/widgets/products_of_gateogry_model.dart';
+import 'package:flare/presentation/profile/presentation/profile_page.dart';
 import 'package:flare/presentation/search/presentation/search_page.dart';
 import 'package:flare/presentation/setting_page/presentation/setting_page.dart';
 import 'package:flare/presentation/splash/pages/splash_page.dart';
@@ -58,6 +61,18 @@ class AppRouter {
       case Routes.splash:
         return CustomRouteAnimation(
           child: const SplashPage(),
+        );
+      case Routes.navBarPage:
+        return CustomRouteAnimation(
+          child:  const NavBarPage(),
+        );
+      case Routes.profilePage:
+        return CustomRouteAnimation(
+          child: const ProfilePage(),
+        );
+      case Routes.notificationPage:
+        return CustomRouteAnimation(
+          child: const NotificationPage(),
         );
       case Routes.orderedItemsPage:
         final List<ProductOrderedModel> orderedProducts;

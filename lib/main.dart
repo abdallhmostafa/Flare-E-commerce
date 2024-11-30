@@ -8,14 +8,20 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
-   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  Bloc.observer = SimpleBlocObserver();
+  await setup();
+  runApp(const FlareApp());
+}
+
+Future<void> setup() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  await AppServiceLocator.initDependencies();
-  runApp(const FlareApp());
+  Bloc.observer = SimpleBlocObserver();
+  Future.wait([
+    Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    ),
+    AppServiceLocator.initDependencies(),
+  ]);
 }

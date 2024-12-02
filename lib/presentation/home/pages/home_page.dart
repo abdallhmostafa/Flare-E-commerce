@@ -14,28 +14,26 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (_) => GetProductCubit(
-                useCase: AppServiceLocator.getIt<GetTopSellingItemsUseCase>())
-              ..getProducts(),
-          ),
-          BlocProvider(
-            create: (_) => GetProductCubit(
-                useCase: AppServiceLocator.getIt<GetNewInItemsUseCase>())
-              ..getProducts(),
-          ),
-          BlocProvider(
-            create: (_) => GetGategoriesCubit()..getCategories(),
-          ),
-          BlocProvider(
-            create: (_) => GetUserInfoCubit()..getUserInfo(),
-          ),
-        ],
-        child: const HomePageBody(),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => GetProductCubit(
+              useCase: AppServiceLocator.getIt<GetTopSellingItemsUseCase>())
+            ..getProducts(),
+        ),
+        BlocProvider(
+          create: (_) => GetProductCubit(
+              useCase: AppServiceLocator.getIt<GetNewInItemsUseCase>())
+            ..getProducts(),
+        ),
+        BlocProvider(
+          create: (_) => GetGategoriesCubit()..getCategories(),
+        ),
+        BlocProvider(
+          create: (_) => GetUserInfoCubit()..getUserInfo(),
+        ),
+      ],
+      child: const HomePageBody(),
     );
   }
 }

@@ -38,7 +38,7 @@ class OrderFirebaseServiceImpl implements OrderFirebaseServiceRepo {
           .collection(AppFirebaseConstant.userCollection)
           .doc(user!.uid)
           .collection(AppFirebaseConstant.cartCollection)
-          .getCacheFirst();
+          .get();
       final List<Map<String, dynamic>> cartProducts = [];
       for (final doc in data.docs) {
         cartProducts.add(doc.data()..addAll({'id': doc.id}));

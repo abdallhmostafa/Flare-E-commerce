@@ -9,27 +9,27 @@ class NotificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SizedBox(
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            child: SvgPicture.asset(
+              AppVectorsAssets.notificationBell,
               width: 100.w,
               height: 100.h,
-              child: SvgPicture.asset(AppVectorsAssets.notificationBell),
             ),
-            Space.verticalSpace(27),
-            Text(
-              'No Notification yet',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            Space.verticalSpace(30),
-          
-          ],
-        ),
+          ),
+          Space.verticalSpace(27),
+          Text(
+            'No\nNotification yet',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          Space.verticalSpace(30),
+        ],
       ),
     );
   }

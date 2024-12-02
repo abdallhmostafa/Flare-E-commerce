@@ -15,7 +15,7 @@ class OrderPlacedPage extends StatelessWidget {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (result, d) {
-        context.pushReplacementNamed(Routes.homePage);
+        context.pushReplacementNamed(Routes.navBarPage);
       },
       child: Scaffold(
         body: Container(
@@ -70,7 +70,7 @@ class OrderPlacedPage extends StatelessWidget {
                         width: double.infinity,
                         child: AppBasicButton(
                           onPressed: () {
-                            context.pushReplacementNamed(Routes.homePage);
+                            context.pushReplacementNamed(Routes.navBarPage);
                           },
                           text: "Continue Shopping",
                         ),

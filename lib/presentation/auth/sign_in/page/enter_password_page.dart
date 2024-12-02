@@ -65,7 +65,7 @@ class EnterPasswordPage extends StatelessWidget {
                 successMessage:
                     "Congratulations!🎉🥳, You have sign in successfully",
                 forSuccessState: () {
-                  context.pushNamedAndRemoveUntil(Routes.homePage,
+                  context.pushNamedAndRemoveUntil(Routes.navBarPage,
                       predicate: (route) => false);
                 },
               ),

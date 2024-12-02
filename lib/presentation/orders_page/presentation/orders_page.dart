@@ -14,13 +14,19 @@ class OrdersPage extends StatelessWidget {
         preferredSize: Size(double.infinity, kToolbarHeight),
         child: BasicAppBar(
           isCenterTitle: true,
-          hideBackArrorw: true ,
+          hideBackArrorw: true,
           title: "Orders",
         ),
       ),
       body: BlocProvider(
         create: (_) => GetOrderedProductsCubit()..getOrderedProducts(),
-        child: const OrdersPageBody(),
+        child: Builder(builder: (context) {
+          return RefreshIndicator.adaptive(
+              onRefresh: () async {
+                context.read<GetOrderedProductsCubit>().getOrderedProducts();
+              },
+              child: const OrdersPageBody());
+        }),
       ),
     );
   }

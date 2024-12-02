@@ -22,7 +22,7 @@ class NoFavoriteProducts extends StatelessWidget {
         Space.verticalSpace(24),
         AppBasicButton(
           onPressed: () {
-            context.pushReplacementNamed(Routes.homePage);
+            context.pushReplacementNamed(Routes.navBarPage);
           },
           text: "Explore Categories",
         )

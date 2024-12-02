@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 
 class SettingItem extends StatelessWidget {
   const SettingItem(
-      {super.key,
-      required this.onTap, required this.description});
+      {super.key, required this.onTap, required this.description});
   final String description;
   final VoidCallback onTap;
   @override
@@ -23,7 +22,7 @@ class SettingItem extends StatelessWidget {
         Icons.arrow_forward_ios_rounded,
         color: AppColors.white,
       ),
-      contentPadding: const EdgeInsets.all(12),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(AppConstant.radius8)),
       ),

@@ -1,4 +1,3 @@
-import 'package:flare/common/helpers/space.dart';
 import 'package:flare/core/configs/assets/app_images_assets.dart';
 import 'package:flare/core/configs/route/routes.dart';
 import 'package:flare/core/configs/theme/app_colors.dart';
@@ -9,7 +8,6 @@ import 'package:flare/presentation/home/widgets/header_section/shimmer_header_se
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HeaderSection extends StatelessWidget {
@@ -18,7 +16,7 @@ class HeaderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-       padding: EdgeInsets.symmetric(
+      padding: EdgeInsets.symmetric(
         horizontal: AppConstant.horizontalScreenPadding.w,
       ),
       child: BlocBuilder<GetUserInfoCubit, GetUserInfoState>(
@@ -34,7 +32,6 @@ class HeaderSection extends StatelessWidget {
               children: [
                 _userProfileImage(state, context),
                 _userGender(state, context),
-                _card(context),
               ],
             );
           } else {
@@ -42,26 +39,6 @@ class HeaderSection extends StatelessWidget {
                 style: Theme.of(context).textTheme.labelMedium);
           }
         },
-      ),
-    );
-  }
-
-  GestureDetector _card(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        context.pushNamed(Routes.cartPage);
-      },
-      child: Container(
-        width: 40.w,
-        height: 40.h,
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          color: AppColors.primary,
-        ),
-        child: Icon(
-          FontAwesomeIcons.bagShopping,
-          size: 16.w,
-        ),
       ),
     );
   }
@@ -75,21 +52,12 @@ class HeaderSection extends StatelessWidget {
           Radius.circular(20),
         ),
       ),
-      child: Row(
-        children: [
-          Text(
-            state.userResponseEntity.gender == 1 ? "Men" : "Women",
-            style: Theme.of(context)
-                .textTheme
-                .labelSmall!
-                .copyWith(fontWeight: FontWeight.bold),
-          ),
-          Space.horizotalSpace(5),
-          Icon(
-            FontAwesomeIcons.chevronDown,
-            size: 14.w,
-          ),
-        ],
+      child: Text(
+        state.userResponseEntity.gender == 1 ? "Men" : "Women",
+        style: Theme.of(context)
+            .textTheme
+            .labelSmall!
+            .copyWith(fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -97,7 +65,8 @@ class HeaderSection extends StatelessWidget {
   GestureDetector _userProfileImage(
       GetUserInfoSuccessState state, BuildContext context) {
     return GestureDetector(
-      onTap: () => context.pushNamed(Routes.settingPage),
+      onTap: () => context.pushNamed(Routes.profilePage,
+          argument: state.userResponseEntity),
       child: Container(
         width: 40.w,
         height: 40.h,
@@ -107,7 +76,7 @@ class HeaderSection extends StatelessWidget {
           shape: BoxShape.circle,
           image: DecorationImage(
             image: state.userResponseEntity.image.isEmpty
-                ? const AssetImage(AppImagesAssets.profile)
+                ?  AssetImage(state.userResponseEntity.gender ==1? AppImagesAssets.maleProfileImg: AppImagesAssets.femaleProfileImg)
                 : NetworkImage(state.userResponseEntity.image),
           ),
         ),

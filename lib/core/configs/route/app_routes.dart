@@ -6,6 +6,7 @@ import 'package:flare/core/configs/route/routes.dart';
 import 'package:flare/data/auth/models/user_creation_request.dart';
 import 'package:flare/data/auth/models/user_sign_in_request.dart';
 import 'package:flare/data/order/model/product_ordered_model.dart';
+import 'package:flare/domain/auth/entity/user_response_entity.dart';
 import 'package:flare/domain/order/entities/ordered_products_entity.dart';
 import 'package:flare/domain/order/entities/product_ordered_entity.dart';
 import 'package:flare/domain/product/product_entity/product_entity.dart';
@@ -47,9 +48,8 @@ import 'package:flare/presentation/product_detail_page/logic/select_size_cubit.d
 import 'package:flare/presentation/product_detail_page/presentation/product_detail_page.dart';
 import 'package:flare/presentation/products_of_category/presentation/products_of_category_page.dart';
 import 'package:flare/presentation/products_of_category/presentation/widgets/products_of_gateogry_model.dart';
-import 'package:flare/presentation/profile/presentation/profile_page.dart';
 import 'package:flare/presentation/search/presentation/search_page.dart';
-import 'package:flare/presentation/setting_page/presentation/setting_page.dart';
+import 'package:flare/presentation/profile_page/presentation/profile_page.dart';
 import 'package:flare/presentation/splash/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,8 +67,10 @@ class AppRouter {
           child:  const NavBarPage(),
         );
       case Routes.profilePage:
+final UserResponseEntity 
+        userDate = settings.arguments as UserResponseEntity;
         return CustomRouteAnimation(
-          child: const ProfilePage(),
+          child:  ProfilePage(userDate: userDate),
         );
       case Routes.notificationPage:
         return CustomRouteAnimation(
@@ -131,10 +133,7 @@ class AppRouter {
         return CustomRouteAnimation(
           child: const OrderPlacedPage(),
         );
-      case Routes.settingPage:
-        return CustomRouteAnimation(
-          child: const SettingPage(),
-        );
+     
       case Routes.favoritesPage:
         return CustomRouteAnimation(
           child: BlocProvider(
